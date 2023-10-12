@@ -12,12 +12,13 @@
 \input{header}
 
 \title{Introduction to Math for DS Group Task 0 \\ The Solutions of Three Problems via LLM}
-\author{IMDS Group 24 \\ ChatGPT (Zehao Qian) and Bard (Mohammad Jamshaid Iqbal)}
+\author{IMDS Group 24 \\ ChatGPT (Zehao Qian) and Bard (Mohammad Jamshaid Iqbal) \\ Bing (Chloe Mendez) annd Answer Analysis (Zeyue Song)}
 \begin{document}
 \maketitle
 
-\textcolor{red}{Sometimes, a little pre-setting could make GPT’s performance better. Below is the first sentence I spoke to ChatGPT:} \par
-\textcolor{blue}{I'm a data scientist, you're my assistant, I'm having some problems that need mathematical modeling right now, and you're here to assist me.}
+\paragraph{\textcolor{red}{Sometimes, a little pre-setting could make GPT's performance better. Below is the first sentence I spoke to ChatGPT:}}
+
+\paragraph{\textcolor{blue}{I'm a data scientist, you're my assistant, I'm having some problems that need mathematical modeling right now, and you're here to assist me.}}
 
 \section{Question 1}
 \textcolor{blue}{The air temperature just above the ground at a particular point on the Earth often varies in a periodic manner over a 24 hour cycle. The daily mean value also varies with the seasons over an annual cycle. If we measure time t in hours, what would be an appropriate mathematical model for the temperature as a function of t? }
@@ -66,6 +67,23 @@
 \end{mdframed}
 % 
 % 
+\begin{mdframed}[
+        backgroundcolor=white,  % 背景颜色
+        linecolor=black,        % 边框颜色
+        leftmargin=5pt,         % 左边距
+        rightmargin=5pt,        % 右边距
+        linewidth=2pt           % 边框的宽度
+    ]
+    \textbf{New Bing: } “The temperature variation over a 24-hour cycle and an annual cycle can be modeled using a trigonometric function. A sinusoidal function can be used to model the temperature variation over a 24-hour cycle, while a cosine function can be used to model the temperature variation over an annual cycle 1.
+    A possible mathematical model for the temperature as a function of time t in hours is:
+    $$
+        T(t) = A sin(2 \pi t/24) + B cos(2 \pi t/365) + C
+    $$
+
+    where A, B, and C are constants that depend on the location and other factors 1.
+    This model assumes that the temperature variation over a 24-hour cycle is sinusoidal, with a period of 24 hours, and that the temperature variation over an annual cycle is cosine, with a period of 365 days 1.”
+
+\end{mdframed}
 % 
 % 
 % 
@@ -90,6 +108,9 @@
     \end{enumerate}
     While a sine function is a common choice for modeling temperature variations, it's important to note that the actual behavior of temperature can be influenced by numerous factors, and more complex models may be needed to account for additional variables and irregularities in the data. The choice of using a sine function is often a simplification that provides a reasonable starting point for analysis.
 \end{mdframed}
+
+\paragraph{\textcolor{red}{Analysis: After analyzing the three answers of Chatgpt, Bard, and Bing, we found that all three models have some things in common. All three answers use trigonometric functions to describe changes in the mathematical model of temperature as a function of time. These three answers are simulated by sine functions. In addition, the three measure “ t ” in hours, so it makes sense to multiply the number of days by the number of hours in a day to keep the graph even. Admittedly, the existence of all three is reasonable, However, when compared, Bard and Bing's answer is better, because ChatGPT's answer does not give a yearly model.}}
+
 
 \section{Question 2}
 \textcolor{blue}{We have a 20 litre bucket that has a hole in the bottom. Every 10 minutes one litre of water flows out of the hole. There is a tap filling the bucket that adds 1 litre of water every 5 minutes. If the bucket starts empty, how long does it take for the bucket to fill?}
@@ -164,8 +185,26 @@
 
 \end{mdframed}
 
+\begin{mdframed}[
+        backgroundcolor=white,  % 背景颜色
+        linecolor=black,        % 边框颜色
+        leftmargin=5pt,         % 左边距
+        rightmargin=5pt,        % 右边距
+        linewidth=2pt           % 边框的宽度
+    ]
+    \textbf{New Bing: }“Let's first calculate the rate at which water is flowing out of the bucket. Since 1 litre of water flows out every 10 minutes, the rate of water flowing out is 0.1 litres per minute.
+    Now, let's calculate the rate at which water is flowing into the bucket. Since 1 litre of water is added every 5 minutes, the rate of water flowing in is 0.2 litres per minute.
+    Since the rate of water flowing in is greater than the rate of water flowing out, the bucket will eventually fill up. We can use the following formula to calculate how long it takes for the bucket to fill up:
+    time = volume / (rate in - rate out)
+    where volume is the volume of the bucket, rate in is the rate at which water flows into the bucket, and rate out is the rate at which water flows out of the bucket.
+    Substituting the values we calculated earlier, we get:
+    time = 20 / (0.2 - 0.1) = 200 minutes
+    Therefore, it will take 200 minutes for the bucket to fill up.”
+\end{mdframed}
 
 
+\paragraph{\textcolor{red}{Analysis: ChatGpt, Bard, and Bing give the same answer to this question, and are quite right. But mathematical formulas can never fully reflect the complex reality of the situation, and we need to consider them in terms of real life. For example, we need to take into account that the rate at which water flows out of a bucket is unlikely to be consistent throughout the filling, and that the pressure will increase accordingly. Moreover, the bucket will only fill temporarily, and after this brief equilibrium, it will either overflow if the tap remains open, or empty if the tap is turned off.
+    }}
 
 \section{Question 3}
 \textcolor{blue}{What is the derivative of $f(x) = 5x(x-1) - 5x^2$?}
@@ -185,7 +224,6 @@
         \item Apply the power rule of differentiation, which states that \(\frac{d}{dx}(x^n) = n x^{n-1}\), where \(n\) is a constant:
         \item Simplify the expression by combining like terms: \(10x - 10x - 5\)
         \item The \(10x\) and \(-10x\) terms cancel each other out, leaving: \(-5\)
-        \item
     \end{enumerate}
     So, the derivative of the function \(f(x) = 5x(x-1) - 5x^2\) is \(-5\).
 \end{mdframed}
@@ -200,16 +238,34 @@
     \textbf{Bard: } To find the derivative of \(f(x) = 5x(x-1) - 5x^2\), we can use the product rule and the power rule.
     The product rule states that the derivative of the product of two functions u(x) and v(x) is:
     d/dx[u(x)v(x)] = u'(x)v(x) + u(x)v'(x)
-    
+
     The power rule states that the derivative of $x^n$ is $nx^{n-1}$.
     Let's differentiate f(x) using these rules:
     $$
-    f'(x)=\frac{d}{dx}[5x(x-1) - 5x^2]
+        f'(x)=\frac{d}{dx}[5x(x-1) - 5x^2]
     $$
     Therefore, the derivative of f(x) is $10x - 5$.
-    
+
 \end{mdframed}
 
+\begin{mdframed}[
+        backgroundcolor=white,  % 背景颜色
+        linecolor=black,        % 边框颜色
+        leftmargin=5pt,         % 左边距
+        rightmargin=5pt,        % 右边距
+        linewidth=2pt           % 边框的宽度
+    ]
+    \textbf{New Bing: }“The derivative of the function $f(x) = 5x(x-1) - 5x^2$ can be calculated using the product rule and the power rule of differentiation.
+    The product rule states that if f(x) = u(x) * v(x), then f'(x) = u'(x) * v(x) + u(x) * v'(x).
+    Using the product rule, we get:
+    $f'(x) = (5x)'(x-1) + 5x(x-1)' - (5x^2)$'
+    Applying the power rule, we get:
+    f'(x) = (5(x-1)) + 5x(1) - (10x)
+    Simplifying, we get:
+    f'(x) = 5x - 5
+    Therefore, the derivative of $f(x)$ is $f'(x) = 5x - 5$.”
+\end{mdframed}
 
+\paragraph{\textcolor{red}{Analysis: ChatGPT's answer is correct, Bard and Bing both give the wrong answer. We think that the product rule should not be used in this problem, but the rules of differentiation should be applied. Because in this case the expression is not expanded, and there is an addition after the multiplication. Therefore, ChatGpt's answer is the correct one.}}
 
 \end{document}
