@@ -5,22 +5,26 @@
 % See "book", "report", "letter" for other types of document.
 
 \documentclass[11pt]{article} % use larger type; default would be 10pt
-
+% 
 \input{texfiles/header.tex}
-
+% 
 %%% END Article customizations
-
+% 
 %%% The "real" document content comes below...
-
-\title{Notes and Assignments of \\ "Introduction to Mathmatics for Data Science"}
-\author{Zehao Qian}
+% 
+% \title{Notes and Assignments of \\ "Introduction to Mathmatics for Data Science"}
+% \author{Zehao Qian}
 %\date{} % Activate to display a given date or no date (if empty),
          % otherwise the current date is printed 
-
+% 
 \begin{document}
-\maketitle
-\input{texfiles/coverpic.tex}
+% \maketitle
+\input{texfiles/titlepage.tex}
+% 
+% 
 \includepdf[pages=-]{group-task-0/main}
-
-
+\includepdf[pages=-]{pdf/CalculusNotes.pdf}
+\includepdf[pages=-]{pdf/LinearAlgebraNotes.pdf}
+% 
+% 
 \end{document}
