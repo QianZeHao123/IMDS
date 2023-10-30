@@ -1,0 +1,51 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+% 
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+% 
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+% 
+% 
+% 
+%%% The "real" document content comes below...
+\input{header}
+% 
+\title{Introduction to Mathematics for Data Science \\ Personal Assignnment 1}
+\author{Zehao Qian}
+\begin{document}
+\maketitle
+% 
+% 
+% 
+\section{Question 1}
+\subsection{Modelling Bird Population Decline Due to Invasive Snakes}
+% 
+\paragraph{To model the bird population over time until extinction, I use a logistic growth model, which is commonly used to describe population growth and decline. The logistic growth model is expressed as:}
+% 
+\[P(t) = \frac{K}{1 + \frac{K - P_0}{P_0} \cdot e^{-rt}}\]
+% 
+\paragraph{Where:}
+\begin{itemize}
+    \item \(P(t)\) is the population at time \(t\).
+    \item \(K\) is the carrying capacity, representing the maximum sustainable population size.
+    \item \(P_0\) is the initial population at \(t = 0\).
+    \item \(r\) is the growth rate parameter.
+    \item \(t\) is time.
+\end{itemize}
+% 
+% 
+\paragraph{In your scenario, the bird population is declining due to the invasive snake species, so you'll need to use a negative growth rate (\(r < 0\)). The population starts at a certain level (\(P_0\)) and gradually approaches zero as time progresses.}
+
+\paragraph{Here's a Python function that models the bird population over time using the logistic growth model and plots it:}
+% 
+% 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{pic/BirdPopullationModel.png}
+    \caption{Bird Prediction Graph}
+\end{figure}
+% 
+% 
+\end{document}
+% 
