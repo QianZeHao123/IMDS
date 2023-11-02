@@ -1,1 +1,74 @@
 \section{Question 3}
+\subsection{Gradient Estimation at $(0.5, 0.3)$ Using Linear Interpolation}
+\paragraph{In this question I use the \textbf{finite difference method}. It is a commonly used numerical computational technique for estimating derivatives or partial derivatives of a function, especially when dealing with discrete data points.}
+% 
+% 
+\paragraph{The finite difference method is typically applied in the following scenarios:}
+% 
+% 
+\begin{itemize}
+    \item A set of discrete data points but do not possess an analytical expression for the function.
+    \item Compute the derivative of a function at a specific point, but lack an analytical expression for the derivative.
+\end{itemize}
+% 
+\paragraph{I apply Central Difference Method (Here, h is a small step size):}
+% 
+% 
+% 
+\begin{equation}
+    \nabla g(x,y)=(\frac{\partial g}{\partial x},\frac{\partial g}{\partial y})
+\end{equation}
+% 
+% 
+\begin{equation}
+    \frac{\partial g}{\partial x}=\frac{g(x+h,y)-g(x-h,y)}{2 h}
+\end{equation}
+% 
+% 
+\begin{equation}
+    \frac{\partial g}{\partial y}=\frac{g(x,y+h)-g(x,y-h)}{2 h}
+\end{equation}
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+\subsection{Estimating Directional Derivative of g at $(0.5, 0.3)$ along the Vector $u=(1,-4)$}
+% 
+% 
+% 
+% 
+\paragraph{To estimate the directional derivative of \(g\) at the point \((x, y) = (0.5, 0.3)\) along the vector \(\mathbf{u} = (1, -4)\), the directional derivative of \(g\) along the vector \(\mathbf{u} = (a, b)\) can be calculated using the gradient \(\nabla g\) as follows:}
+
+\begin{equation}
+    D_{\mathbf{u}} g = \nabla g \cdot \mathbf{u} = \frac{\partial g}{\partial x} \cdot a + \frac{\partial g}{\partial y} \cdot b
+\end{equation}
+
+\paragraph{\(\mathbf{u} = (1, -4)\) and I have estimated the gradient components as \(\frac{\partial g}{\partial x}\) and \(\frac{\partial g}{\partial y}\).}
+
+You can now plug these values into the formula to estimate the directional derivative:
+\begin{equation}
+    D_{\mathbf{u}} g = \left(\frac{\partial g}{\partial x}\right) \cdot 1 + \left(\frac{\partial g}{\partial y}\right) \cdot (-4)
+\end{equation}
+
+\paragraph{Use the values for \(\frac{\partial g}{\partial x}\) and \(\frac{\partial g}{\partial y}\) to calculate \(D_{\mathbf{u}} g\).}
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
