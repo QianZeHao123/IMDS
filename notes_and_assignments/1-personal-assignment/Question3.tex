@@ -33,11 +33,23 @@
 % 
 % 
 % 
+\begin{align*}
+    \frac{\partial g_{x=0.5, y=0.3}}{\partial x_{x=0.5}} & = \frac{g(0.6,0.3)-g(0.4,0.3)}{2 \times 0.1} \\
+                                                         & = \frac{0.003-(-0.337)}{0.2}                 \\
+                                                         & =1.7
+\end{align*}
 % 
 % 
 % 
+\begin{align*}
+    \frac{\partial g_{x=0.5, y=0.3}}{\partial y_{y=0.3}} & = \frac{g(0.5,0.4)-g(0.5,0.2)}{2 \times 0.1} \\
+                                                         & = \frac{-0.234-(-0.038)}{0.2}                \\
+                                                         & = -0.98
+\end{align*}
 % 
 % 
+% 
+\paragraph{So, $\nabla g(x_{x=0.5},y_{y=0.3})=(1.7,-0.98)$.}
 % 
 % 
 % 
@@ -47,23 +59,28 @@
 % 
 % 
 % 
-\paragraph{To estimate the directional derivative of \(g\) at the point \((x, y) = (0.5, 0.3)\) along the vector \(\mathbf{u} = (1, -4)\), the directional derivative of \(g\) along the vector \(\mathbf{u} = (a, b)\) can be calculated using the gradient \(\nabla g\) as follows:}
+\paragraph{To estimate the directional derivative of \(g\) at the point \((x, y) = (0.5, 0.3)\) along the vector \(\mathbf{u} = (1, -4)\), the directional derivative of \(g\) along the vector \(\mathbf{u} = (a, b)\) can be calculated using the gradient \(\nabla g\) as follows ((a,b) is the unitized $\vec{u}$.):}
 
 \begin{equation}
     D_{\mathbf{u}} g = \nabla g \cdot \mathbf{u} = \frac{\partial g}{\partial x} \cdot a + \frac{\partial g}{\partial y} \cdot b
 \end{equation}
 
 \paragraph{\(\mathbf{u} = (1, -4)\) and I have estimated the gradient components as \(\frac{\partial g}{\partial x}\) and \(\frac{\partial g}{\partial y}\).}
-
-You can now plug these values into the formula to estimate the directional derivative:
-\begin{equation}
-    D_{\mathbf{u}} g = \left(\frac{\partial g}{\partial x}\right) \cdot 1 + \left(\frac{\partial g}{\partial y}\right) \cdot (-4)
-\end{equation}
+% 
+% 
+% 
+%     
+$$ \vec{u}=(\frac{u_x}{|u|},\frac{u_y}{|u|})=(\frac{1}{\sqrt{17}},\frac{-4}{\sqrt{17}}) $$
+% 
+% 
+% 
+$$ D_{\mathbf{u}} g = \left(\frac{\partial g}{\partial x}\right) \cdot \frac{1}{\sqrt{17}} + \left(\frac{\partial g}{\partial y}\right) \cdot (\frac{-4}{\sqrt{17}}) $$
 
 \paragraph{Use the values for \(\frac{\partial g}{\partial x}\) and \(\frac{\partial g}{\partial y}\) to calculate \(D_{\mathbf{u}} g\).}
 % 
 % 
 % 
+$$ D_u g = 1.7 \times \frac{1}{\sqrt{17}} - 0.98 \times (\frac{-4}{\sqrt{17}}) = 1.3507 $$
 % 
 % 
 % 
