@@ -111,123 +111,12 @@
     % 
     \paragraph{This system is inconsistent (no solution) because the augmented matrix \([A | \mathbf{v}]\) does not reduce to the identity matrix. Therefore, \( (1, 0, -1) \) is not in the plane spanned by \( (4, 11, 7) \) and \( (3, 11, 8) \).}
 \end{mdframed}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 % 
 % 
 % 
-% \paragraph{If \( A = \begin{bmatrix}
-%         1 & 0 & 4 & 1  \\
-%         0 & 2 & 0 & 2  \\
-%         6 & 0 & 3 & 11 \\
-%     \end{bmatrix} \)
-%     ,
-%     \( B = \begin{bmatrix}
-%         7 & -1 & 2 \\
-%         1 & 1  & 0 \\
-%         2 & 0  & 1 \\
-%     \end{bmatrix} \). What is the product AB?}
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% \subsection{AI Bot's Answer}
-% \begin{mdframed}[
-%         backgroundcolor=white,  % 背景颜色
-%         linecolor=black,        % 边框颜色
-%         leftmargin=5pt,         % 左边距
-%         rightmargin=5pt,        % 右边距
-%         linewidth=2pt           % 边框的宽度
-%     ]
-%     \paragraph{\textbf{ChatGPT}: To find the product \(AB\), you multiply matrix \(A\) by matrix \(B\) using the matrix multiplication rules. The element in the \(i\)-th row and \(j\)-th column of the product matrix \(AB\) is calculated by taking the dot product of the \(i\)-th row of matrix \(A\) and the \(j\)-th column of matrix \(B\).}
-%     % 
-%     \paragraph{Let's calculate the individual elements of the resulting matrix \(AB\):}
-%     % 
-%     \[ AB_{ij} = \sum_{k=1}^{n} A_{ik} \cdot B_{kj} \]
-%     % 
-%     \paragraph{Here, \(n\) is the number of columns in matrix \(A\) (which must be equal to the number of rows in matrix \(B\) for the multiplication to be defined).}
-%     \paragraph{\textcolor{red}{Until now, all of ChatGPT's responses are correct, and the matrix multiplication formula for \(AB\) is accurate, especially "the number of columns in matrix \(A\) (which must be equal to the number of rows in matrix \(B\) for the multiplication to be defined)".}}
-%     % 
-%     \paragraph{Given matrices \(A\) and \(B\):}
-%     % 
-%     \[ A = \begin{bmatrix}
-%             1 & 0 & 4 & 1  \\
-%             0 & 2 & 0 & 2  \\
-%             6 & 0 & 3 & 11 \\
-%         \end{bmatrix} \]
-
-%     \[ B = \begin{bmatrix}
-%             7 & -1 & 2 \\
-%             1 & 1  & 0 \\
-%             2 & 0  & 1 \\
-%         \end{bmatrix} \]
-%     % 
-%     \paragraph{Let's calculate the elements of \(AB\):}
-%     \paragraph{\textcolor{red}{Clearly, these two matrices cannot be multiplied.}}
-%     % 
-%     \[ AB_{11} = (1 \cdot 7) + (0 \cdot 1) + (4 \cdot 2) + (1 \cdot 2) = 7 + 0 + 8 + 2 = 17 \]
-%     % 
-%     \[ AB_{12} = (1 \cdot (-1)) + (0 \cdot 1) + (4 \cdot 0) + (1 \cdot 0) = -1 + 0 + 0 + 0 = -1 \]
-%     % 
-%     \[ AB_{13} = (1 \cdot 2) + (0 \cdot 0) + (4 \cdot 1) + (1 \cdot 1) = 2 + 0 + 4 + 1 = 7 \]
-%     % 
-%     \[ AB_{21} = (0 \cdot 7) + (2 \cdot 1) + (0 \cdot 2) + (2 \cdot 0) = 0 + 2 + 0 + 0 = 2 \]
-%     % 
-%     \[ AB_{22} = (0 \cdot (-1)) + (2 \cdot 1) + (0 \cdot 0) + (2 \cdot 0) = 0 + 2 + 0 + 0 = 2 \]
-%     % 
-%     \[ AB_{23} = (0 \cdot 2) + (2 \cdot 0) + (0 \cdot 1) + (2 \cdot 1) = 0 + 0 + 0 + 2 = 2 \]
-%     % 
-%     \[ AB_{31} = (6 \cdot 7) + (0 \cdot 1) + (3 \cdot 2) + (11 \cdot 0) = 42 + 0 + 6 + 0 = 48 \]
-%     % 
-%     \[ AB_{32} = (6 \cdot (-1)) + (0 \cdot 1) + (3 \cdot 0) + (11 \cdot 0) = -6 + 0 + 0 + 0 = -6 \]
-%     % 
-%     \[ AB_{33} = (6 \cdot 2) + (0 \cdot 0) + (3 \cdot 1) + (11 \cdot 1) = 12 + 0 + 3 + 11 = 26 \]
-%     % 
-%     \paragraph{Therefore, the product \(AB\) is:}
-%     \paragraph{\textcolor{red}{ChatGPT mistakenly treated matrix \(B\) as a \(4 \times 4\) matrix. Despite this, the calculations provided above are still incorrect, resulting in \(AB\) being a \(3 \times 3\) matrix.}}
-%     \[ AB = \begin{bmatrix}
-%             17 & -1 & 7  \\
-%             2  & 2  & 2  \\
-%             48 & -6 & 26 \\
-%         \end{bmatrix} \]
-
-% \end{mdframed}
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% \subsection{Analytics}
-% % 
-% % 
-% \paragraph{In addition to the analysis of the AI mentioned above, our team also wrote a program using numpy to compute matrix multiplication. However, when running the program, we encountered an error. The result is as follows:}
-% % 
-% % 
-% % 
-% % 
-% $$$$
+% 
+% 
+% 
 % % 
 % % 
 % \begin{lstlisting}[style=pystyle]
