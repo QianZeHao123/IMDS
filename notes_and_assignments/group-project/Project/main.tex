@@ -1,0 +1,258 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+% 
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+% 
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+% 
+% 
+% 
+%%% The "real" document content comes below...
+\input{header}
+% 
+\title{Introduction to Math for DS Group Mini-project}
+\author{IMDS Group 24 \\ Zehao Qian, Mohammad Jamshaid Iqbal, Chloe Mendez}
+\begin{document}
+\maketitle
+% 
+% 
+% \input{example}
+\section{Problem}
+\paragraph{Looking to find out which team is more likely to win the league given their current form. The focus will be on the English Premier League and the target is that the model can be used for other leagues too.}
+\section{Variables}
+\paragraph{The variables that we will be taking in are the following:}
+% 
+% 
+% 
+\begin{enumerate}
+    \item The number of matches won by the nth game week, v1.
+    \item The number of matches lost by the nth game week, v2.
+    \item The number of matches drawn by the nth game week, v3.
+    \item The number of goals scored by the nth game week, v4.
+    \item The number of goals conceded by the nth game week, v5.
+    \item The number of points gained by the nth game week, v6.
+    \item The number of matches in the last 5 games, v7
+\end{enumerate}
+% 
+% 
+% 
+% 
+\section{Method}
+\paragraph{We will change these variables into a 7-dimensional vector:}
+$$ V = [v1, v2, v3, v4, v5, v6, v7] $$
+\subsection{METHOD 1}
+\paragraph{The first method that I can think of is using vector projection to see which team will be performing the best by the end of the season given current statistics.}
+% 
+% 
+\paragraph{We will then normalize the above vector for each team using the following formula:}
+% 
+% 
+\paragraph{This will help us to compare the team's performance with each other.
+We can then define a reference vector; a reference vector can be calculated using the performance of previous champions by the nth game week for the season they were championed it. If we have the data for the past 10 seasons, then we will have 10 reference vectors and we can take the average out for those reference vectors. Let's call this reference vector Vr.}
+\paragraph{Next, we will project each team's normalized vector onto the reference vector. This will give us how each team's performance is compared to an ideal performance.
+The team with the largest projection is the team that is most likely to win.}
+% 
+% 
+% 
+% 
+\subsection{METHOD 2}
+\paragraph{This vector is basically representing the team's performance till the nth game week. We can use this vector to predict team's performance for the remaining matches by applying linear transformation.}
+\paragraph{The linear transformation will basically transform the 7-dimensional vector to a 1-dimensional vector which will be the total number of points by the team.
+Fv : R7 -> R}
+\paragraph{The linear transformation F will take in the vector V which is the vector of the team's statistics in the nth game week and map it to the predicted point at the end of the season.}
+F(V) = wV + b
+\paragraph{w is the 7-dimensional weighted vector which is basically a weighted vector for each statistic. b is the scalar bias. Scalar bias is a systematic error in a model and the importance of scalar bias will be to make the value of the points closer to the accurate value.}
+\paragraph{To take out the weighted vector and scalar bias, we will use the data of previous seasons (we can use the data of 10 years) and then use gradient descent in Python. After inputting the historical data, we will be able to take out the weighted vectors and scalar bias which then can be applied to the formula above to take out the points.}
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+\section{Limitations}
+% 
+% 
+\paragraph{The model just takes in the statistics such as wins till a certain game week, the number of goals scored, etc. as input. This might not be an accurate representation of the prediction for who will win the Premier League. This could be because there are other factors that can come into play such as the number of quality players bought by a team, the amount of money spent on transfers, the number of players injured during the season, the experience of managers, etc. There are many more factors that could affect a team's performance throughout the season, but our model uses the on-field statistics to predict who will win the league. A linear regression model can be used to check the accurate representation of who will win the league by using more data.}
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+\section{Data}
+\href{https://www.premierleague.com/tables}{https://www.premierleague.com/tables}
+% 
+% 
+% 
+% 
+% \begin{lstlisting}[style=pystyle]
+% import numpy as np
+% # Define the matrices A and B
+% A = np.array([
+%     [1, 0, 4, 1],
+%     [0, 2, 0, 2],
+%     [6, 0, 3, 11]
+% ])
+
+% B = np.array([
+%     [7, -1, 2],
+%     [1, 1, 0],
+%     [2, 0, 1]
+% ])
+
+% # Calculate the product of A and B
+% AB_product = np.dot(A, B)
+% AB_product    
+% \end{lstlisting}
+% 
+% 
+% 
+% 
+% \paragraph{\textcolor{red}{Return ValueError: shapes (3,4) and (3,3) not aligned: 4 (dim 1) != 3 (dim 0)}}
+% 
+% 
+% \paragraph{\textbf{Analytics:} The product of two matrices AB is undefined if the number of columns in the first matrix A does not match the number of rows in the second matrix B. In this case, matrix A has 4 columns, while matrix B has 3 rows, so their product cannot be computed. Matrix multiplication requires that the number of columns in the first matrix be equal to the number of rows in the second matrix. If there's a third matrix C that should be involved to make the multiplication possible, please provide it, otherwise matrix A and B as given cannot be multiplied.}
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% \section{Question 2}
+% \paragraph{What is the dimension of the span of the vectors $(5,7,9,0)$, $(2,5,0,1)$, $(0,0,0,1)$ and $(7,12,9,3)$?}
+% 
+% 
+% 
+% 
+% 
+% 
+% \subsection{AI Bot's Answer}
+% \begin{mdframed}[
+%         backgroundcolor=white,  % 背景颜色
+%         linecolor=black,        % 边框颜色
+%         leftmargin=5pt,         % 左边距
+%         rightmargin=5pt,        % 右边距
+%         linewidth=2pt           % 边框的宽度
+%     ]
+%     \paragraph{\textbf{ChatGPT}: To find the dimension of the span of the given vectors, we can create a matrix using these vectors as columns and then find the rank of the matrix.}
+%     % 
+%     \paragraph{The given vectors are:}
+%     % 
+%     \[
+%         \begin{bmatrix}
+%             5 \\
+%             7 \\
+%             9 \\
+%             0
+%         \end{bmatrix},
+%         \begin{bmatrix}
+%             2 \\
+%             5 \\
+%             0 \\
+%             1
+%         \end{bmatrix},
+%         \begin{bmatrix}
+%             0 \\
+%             0 \\
+%             0 \\
+%             1
+%         \end{bmatrix},
+%         \begin{bmatrix}
+%             7  \\
+%             12 \\
+%             9  \\
+%             3
+%         \end{bmatrix}
+%     \]
+%     % 
+%     \paragraph{Let's create a matrix \(M\) using these vectors:}
+
+%     \[ M = \begin{bmatrix}
+%             5 & 2 & 0 & 7  \\
+%             7 & 5 & 0 & 12 \\
+%             9 & 0 & 0 & 9  \\
+%             0 & 1 & 1 & 3
+%         \end{bmatrix} \]
+%     % 
+%     \paragraph{Now, we will perform row operations to bring the matrix to its echelon form or reduced row-echelon form and find the rank.}
+%     % 
+%     \paragraph{\textcolor{red}{To determine how many linearly independent vectors are among these four vectors, arrange them into a matrix and perform row operations to transform it into row-echelon form (REF) or reduced row-echelon form (RREF). ChatGPT choose the correct answer.}}
+%     % 
+%     \[ RREF(M) = \begin{bmatrix}
+%             1 & 0 & 0 & 1 \\
+%             0 & 1 & 1 & 2 \\
+%             0 & 0 & 0 & 0 \\
+%             0 & 0 & 0 & 0
+%         \end{bmatrix} \]
+
+%     \paragraph{The rank of this matrix (and hence the vectors) is 2. Therefore, the dimension of the span of the given vectors is 2.}
+%     % 
+%     \paragraph{\textcolor{red}{However, ChatGPT made an error in calculating RREF(M) during the matrix transformation, consequently leading to an incorrect rank for the matrix.}}
+%     % 
+%     $$$$
+
+% \end{mdframed}
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% \subsection{Analytics}
+% 
+% 
+% 
+% \paragraph{We used the "np.linalg.matrix\_rank" function in NumPy to calculate the rank of matrix \(M\).}
+% 
+% $$$$
+% 
+% 
+% \begin{lstlisting}[style=pystyle]
+% import numpy as np
+
+% # Define the vectors
+% vectors = np.array([
+%     [5, 7, 9, 0],
+%     [2, 5, 0, 1],
+%     [0, 0, 0, 1],
+%     [7, 12, 9, 3]
+% ])
+
+% # Using numpy to find the rank of the matrix composed of the given vectors
+% rank_of_matrix = np.linalg.matrix_rank(vectors)
+% rank_of_matrix
+% \end{lstlisting}
+% 
+% 
+% 
+% 
+% 
+% \paragraph{\textbf{Analytics:} The four vectors $(5,7,9,0)$, $(2,5,0,1)$, $(0,0,0,1)$, and $(7,12,9,3)$ are actually linearly related, because the dimensions of the space they stretch are 3, not 2. This means that of the four vectors, at least one can be linearly represented by the other three. To find a set of linearly independent vectors, we need to remove at least one of the vectors so that the rank of the remaining set of vectors equals the number of vectors. In this example, since any three of these four vectors can form a basis of a stretched space, a linearly independent set of vectors can be obtained by removing any one of them.}
+% 
+% 
+% 
+% 
+% 
+\end{document}
+% 
