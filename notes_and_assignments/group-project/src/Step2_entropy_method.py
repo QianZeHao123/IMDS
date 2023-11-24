@@ -46,3 +46,18 @@ weighted_sum = weighted_df.sum(axis=1)
 
 result_df = pd.DataFrame({'Team': df['Team'], 'Weighted Sum': weighted_sum})
 print(result_df)
+
+
+import matplotlib.pyplot as plt
+
+# Plotting the bar chart for the Weighted Sum
+plt.figure(figsize=(10, 6))
+plt.bar(result_df['Team'], result_df['Weighted Sum'], color='skyblue')
+plt.title('Weighted Sum for Each Team')
+plt.xlabel('Team')
+plt.ylabel('Weighted Sum')
+plt.xticks(rotation=45, ha='right')  # Rotate x-axis labels for better readability
+plt.tight_layout()
+
+# Show the plot
+plt.show()
