@@ -14,7 +14,7 @@ driver.maximize_window()
 driver.get('https://footystats.org/england/premier-league')
 
 start_year = 2007
-end_year = 2022
+end_year = 2023
 Years = [
     f'{year}/{str(year+1)[-2:]}' for year in range(start_year, end_year + 1)]
 # year = '2022/23'
