@@ -1,0 +1,119 @@
+\section{Question 4}
+% 
+% 
+\subsection{Gradient Descent from $(2, 4)$ for $F(x, y) = x^2 + y^2 - 6sin(x - y)$}
+% 
+% 
+% 
+\begin{lstlisting}[style=pystyle]
+import numpy as np
+import matplotlib.pyplot as plt
+import sympy as sp
+
+# Define symbolic variables
+x, y = sp.symbols('x y')
+
+# Define the function pandemic_model(x, y)
+F = x**2 + y**2 - 6*sp.sin(x - y)
+
+# Initialize the starting point
+x_current, y_current = 2, 4
+
+# Choose the step size parameter
+alpha = 0.1  # Change different values 0.1, 0.5, 1
+
+# Create lists to store the trajectory
+x_trajectory = [x_current]
+y_trajectory = [y_current]
+
+# Iterate for gradient descent
+for step in range(3):
+    # Calculate the gradient
+    gradient_x = sp.diff(F, x).subs({x: x_current, y: y_current})
+    gradient_y = sp.diff(F, y).subs({x: x_current, y: y_current})
+
+    # Update the point
+    x_current -= alpha * gradient_x
+    y_current -= alpha * gradient_y
+
+    # Add to the trajectory lists
+    x_trajectory.append(x_current)
+    y_trajectory.append(y_current)
+
+# Create a contour plot
+x_vals = np.linspace(-2, 4, 400)
+y_vals = np.linspace(-2, 6, 400)
+X, Y = np.meshgrid(x_vals, y_vals)
+Z = X**2 + Y**2 - 6*np.sin(X - Y)
+plt.contour(X, Y, Z, levels=50)
+plt.colorbar()
+
+plt.plot(x_trajectory, y_trajectory, marker='o', label='Gradient Descent Path')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Contour Plot of F(x, y) with Gradient Descent Path')
+plt.legend()
+plt.grid(True)
+plt.show()
+\end{lstlisting}
+% 
+% 
+
+\begin{multicols}{2} % 参数2表示创建两列布局
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.5\textwidth]{pic/Gradient_Descent_Path_01.png}
+        \caption{step size parameter = 0.1}
+    \end{figure}
+    \columnbreak
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.5\textwidth]{pic/Gradient_Descent_Path_02.png}
+        \caption{step size parameter = 0.2}
+    \end{figure}
+\end{multicols}
+
+\begin{multicols}{2} % 参数2表示创建两列布局
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.5\textwidth]{pic/Gradient_Descent_Path_05.png}
+        \caption{step size parameter = 0.5}
+    \end{figure}
+    \columnbreak
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.5\textwidth]{pic/Gradient_Descent_Path_10.png}
+        \caption{step size parameter = 1.0}
+    \end{figure}
+\end{multicols}
+
+
+\subsection{Gradient Descent with more steps}
+\paragraph{\textbf{Analytics:}}
+\begin{enumerate}
+    \item Convergence to a Local Minimum: If the learning rate is chosen appropriately and the optimization problem is convex or has a single global minimum, gradient descent will converge to that minimum. may also be the global minimum.
+    \item Convergence to a Saddle Point: In non-convex optimization problems, gradient descent may converge to a saddle point rather than a local minimum. Saddle points are points where the gradient is zero, but they are not necessarily optimal. 
+    \item  Oscillation or Divergence: If the learning rate is too high, gradient descent may oscillate or even diverge. The model parameters may bounce back and forth, failing to converge. 
+    \item Slowing Down Near the Minimum: As gradient descent gets closer to the minimum, the step sizes become smaller because the gradient becomes smaller.
+    \item Flat Regions: In some optimization landscapes, there may be regions where the gradient is close to zero, but it is not a minimum. 
+    \item Longer Matplotlib Randering Time: when I set iteration number to 100, the plot is very complex, with a large number of data points, labels, and graphical elements, it can take longer to render (About 2.5 minutes). 
+\end{enumerate}
+
+% Gradient_Descent_Step_10
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{pic/Gradient_Descent_Step_10.png}
+    \caption{Set iteration for 10 times, learning rate = 0.1}
+\end{figure}
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
