@@ -1,103 +1,142 @@
 \section{Question 2}
-% % 
-% % 
-% % 
-% \subsection{Derivative $f'(x)$ at $x = 7$}
-% % 
-% \paragraph{From the definition of the derivative, it can be seen that:}
-% % 
-% \begin{equation}
-%     f'(x)=\frac{f(x + \Delta x)-f(x)}{\Delta x}
-% \end{equation}
-% % 
-% % 
-% \paragraph{In the diagram I plotted at $x=7,7.2$, while $y=3.8,4.4$. So we let $\Delta x=0.2$}
-% % 
-% % 
-% % 
-% % 
+\subsection{Find Linear Transformation}
+\paragraph{Consider the vectors $ \vec{a}= \begin{pmatrix}
+            7 \\
+            1 \\
+            2
+        \end{pmatrix}$,
+    $ \vec{b}= \begin{pmatrix}
+            8 \\
+            1 \\
+            4
+        \end{pmatrix}$,
+    $ \vec{c}= \begin{pmatrix}
+            -1 \\
+            0  \\
+            2
+        \end{pmatrix}$.
+    Is there a linear transformation $f$: $\mathbb{R}^{3} \rightarrow \mathbb{R}^{4}$
+    such that the following conditions are satisfied?
+    $ f(\vec{a})= \begin{pmatrix}
+            1 \\
+            0 \\
+            0 \\
+            0
+        \end{pmatrix}$,
+    $ f(\vec{b})= \begin{pmatrix}
+            0 \\
+            1 \\
+            0 \\
+            0
+        \end{pmatrix}$ and
+    $ f(\vec{c})= \begin{pmatrix}
+            0 \\
+            0 \\
+            0 \\
+            0
+        \end{pmatrix}$.
+    If there is such an f, then find its matrix. If there is not, then explain why.
+}
+% 
+% 
+% 
+% 
+% 
+\subsubsection{Analytics}
+\paragraph{We can represent the matrix $f$ as:}
+% 
+% 
+% 
+$$
+    f = \begin{pmatrix} | & | & | \\ \vec{f}(\vec{a}) & \vec{f}(\vec{b}) & \vec{f}(\vec{c}) \\ | & | & | \end{pmatrix}
+$$
+% 
+% 
+% 
+% 
+\paragraph{Then, set up the following system of equations:}
+% 
+% 
+% 
+% 
+$$
+    \begin{pmatrix}
+        |                & |                & |                \\
+        \vec{f}(\vec{a}) & \vec{f}(\vec{b}) & \vec{f}(\vec{c}) \\
+        |                & |                & |
+    \end{pmatrix}
+    \begin{pmatrix}
+        7 & 8 & -1 \\
+        1 & 1 & 0  \\
+        2 & 4 & 2  \\
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        1 & 0 & 0 \\
+        0 & 1 & 0 \\
+        0 & 0 & 0 \\
+        0 & 0 & 0 \\
+    \end{pmatrix}
+$$
+% 
+% 
+\paragraph{we can find the matrix $f$ by solving this system of equations.}
+% 
+$$$$
+\begin{lstlisting}[style=pystyle]
+import numpy as np
 
-% % = \frac{f(x=7+\Delta x)-f(x=7)}{\Delta x} \\
-% \begin{align*}
-%     f'(x)
-%      & = \frac{f(7+\Delta x)-f(7)}{\Delta x} \\
-%      & = \frac{f(7.2)-f(7)}{0.2}             \\
-%      & = \frac{4.4-3.8}{0.2}                 \\
-%      & =3.0
-% \end{align*}
+# Define the given vectors
+a = np.array([7, 1, 2])
+b = np.array([8, 1, 4])
+c = np.array([-1, 0, 2])
 
-% % 
-% % 
-% % 
-% % 
-% % 
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.7\textwidth]{pic/q2a.jpeg}
-%     \caption{$f(x)$'s value when $x=7,7.2$}
-% \end{figure}
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% \subsection{The Estimated Value of $\int^6_2 f(x)dx$}
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.7\textwidth]{pic/q2b.jpeg}
-%     \caption{It is about 258 blocks from $x=2$ to $6$}
-% \end{figure}
-% % 
-% % 
-% % 
-% \paragraph{The area of each block is: $0.2 \times 0.2 = 0.04$, so the value of $ \int^6_2 f(x)dx $ is $ 258 \times 0.04 = 10.32 \approx \mathbf{10.3} $}
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% \subsection{Draw the plot of function h}
-% % 
-% % 
-% % 
-% \begin{center}
-%     \input{pic/q3c.tex}
-% \end{center}
-% % 
-% % 
-% \paragraph{I draw this plot above with LaTeX Tikz package via Mathcha (\href{https://www.mathcha.io/editor}{https://www.mathcha.io/editor})}
-% % 
-% % 
-% \paragraph{\textbf{Analytics:}}
-% \begin{itemize}
-%     \item For x < 0, the graph increases.
-%     \item At x = 0, there is a local maximum.
-%     \item For 0 < x < 2, the graph decreases.
-%     \item At x = 2, there is an inflection point.
-%     \item For 2 < x < 3, the graph decreases.
-%     \item At x = 3, there is a local minimum.
-%     \item For x > 3, the graph increases.
-% \end{itemize}
-% % 
-% % 
-% % 
-% % maximum
-% % minimum
-% % 
-% % b 258
+# Define the target matrices
+fa_target = np.array([1, 0, 0, 0])
+fb_target = np.array([0, 1, 0, 0])
+fc_target = np.array([0, 0, 0, 0])
+
+# Form the matrix equation [f] * [a, b, c] = [fa_target, fb_target, fc_target]
+A = np.vstack((a, b, c)).T  # Transpose to make it 3x3
+B_target = np.vstack((fa_target, fb_target, fc_target)).T  # Transpose to make it 3x4
+
+# Solve for the matrix [f]
+try:
+    f_matrix, residuals, rank, s = np.linalg.lstsq(A, B_target, rcond=None)
+    print("Matrix [f]:")
+    print(f_matrix)
+except np.linalg.LinAlgError:
+    print("No solution exists for the given conditions.")
+\end{lstlisting}
+% 
+% 
+% 
+% 
+% 
+% 
+\paragraph{\textbf{Output Analytics: 'No solution exists for the given conditions.'}  It implies that there is no matrix $f$ satisfying the specified conditions.}
+% 
+% 
+% 
+% 
+
+\subsubsection{Another Linear Transformation}
+\paragraph{Is there a linear transformation $f$: $\mathbb{R}^{3} \rightarrow \mathbb{R}^{4}$ such that the following conditions are satisfied?
+    $ f(\vec{a})= \begin{pmatrix}
+            1 \\
+            0 \\
+            0 \\
+            0
+        \end{pmatrix}$,
+    $ f(\vec{b})= \begin{pmatrix}
+            1  \\
+            -1 \\
+            0  \\
+            0
+        \end{pmatrix}$ and
+    $ f(\vec{c})= \begin{pmatrix}
+            0 \\
+            1 \\
+            0 \\
+            0
+        \end{pmatrix}$.}

@@ -1,5 +1,71 @@
 \section{Question 1}
-% % 
+\subsection{Solve Matrix B}
+\paragraph{Consider the matrix $ A =
+        \begin{pmatrix}
+            5  & 2 & 3 \\
+            -2 & 3 & 1 \\
+            0  & 2 & 2 \\
+            1  & 0 & 1
+        \end{pmatrix} $ Find a matrix $B$ such that $AB =
+        \begin{pmatrix}
+            8  & 6 \\
+            -1 & 9 \\
+            2  & 6 \\
+            2  & 0
+        \end{pmatrix}$.
+}
+\subsection{Analytics}
+\paragraph{Due to the shape of matrix $A=[a_{ij}]$ shape is \(4\times 3\), and the shape of matrix $AB=[a_{ik}]$ is \(4\times 2\), we can use the matrix multiplication equation to solve for \(B\) (we can also infer that matrix $B$ is 3 rows and 2 columns).}
+\paragraph{To solve for \(B\), we have the matrix multiplication equation:
+    $$
+        \begin{pmatrix}
+            5  & 2 & 3 \\
+            -2 & 3 & 1 \\
+            0  & 2 & 2 \\
+            1  & 0 & 1
+        \end{pmatrix}
+        \begin{pmatrix}
+            b_{11} & b_{12} \\
+            b_{21} & b_{22} \\
+            b_{31} & b_{32}
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+            8  & 6 \\
+            -1 & 9 \\
+            2  & 6 \\
+            2  & 0
+        \end{pmatrix}
+    $$}
+\paragraph{Equating the corresponding elements with the given matrix \( AB \), we get the following system of equations $ \Rightarrow \left\{
+        \begin{matrix}
+            5b_{11} + 2b_{21} + 3b_{31} = 8  \\
+            5b_{12} + 2b_{22} + 3b_{32} = 6  \\
+            -2b_{11} + 3b_{21} + b_{31} = -1 \\
+            -2b_{12} + 3b_{22} + b_{32} = 9  \\
+            2b_{21} + 2b_{31} = 2            \\
+            2b_{22} + 2b_{32} = 6            \\
+            b_{11} + b_{31} = 2              \\
+            b_{12} + b_{32} = 0
+        \end{matrix}
+        \right.$
+    Then solve the equations and get
+    $ B = \left(
+        \begin{matrix}
+            1 & 0 \\
+            0 & 3 \\
+            1 & 0 \\
+        \end{matrix}
+        \right) $.}
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
 % \section{Question 1}
 % \subsection{Modelling Bird Population Decline Due to Invasive Snakes}
 % % 
