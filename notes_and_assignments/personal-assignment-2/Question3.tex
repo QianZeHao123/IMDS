@@ -15,34 +15,34 @@
         \end{pmatrix} $$
     Either find a solution or explain why it does not have any solutions.
 }
-\subsection{Analyics}
+\subsubsection{Analyics}
 \paragraph{To determine whether the linear system has a solution, we can check the consistency of the system using the augmented matrix. The augmented matrix for the given system is:
-    $$
+    $
         \begin{matrix}
             \begin{pmatrix}
                 6 & -4 & 1 \\
                 8 & -6 & 1 \\
                 2 & 0  & 1
             \end{pmatrix}
-            \overset{Row2 = Row2 - \frac{4}{3} \times Row1}{\longrightarrow} \
+            \overset{Row2 = Row2 - \frac{4}{3} \times Row1}{\longrightarrow} \ \
             \overset{Row3 = Row3 - \frac{1}{3} \times Row1}{\longrightarrow}
             \begin{pmatrix}
                 6 & -4           & 1            \\
                 0 & -\frac{2}{3} & -\frac{1}{3} \\
                 0 & \frac{4}{3}  & \frac{2}{3}
-            \end{pmatrix}
+            \end{pmatrix} \\
             \overset{Row2 \times (-3)}{\longrightarrow}
             \begin{pmatrix}
                 6 & -4          & 1           \\
                 0 & 2           & 1           \\
                 0 & \frac{4}{3} & \frac{2}{3}
-            \end{pmatrix} \\
+            \end{pmatrix}   \\
             \overset{Row3 \times (\frac{3}{2})}{\longrightarrow}
             \begin{pmatrix}
                 6 & -4 & 1 \\
                 0 & 2  & 1 \\
                 0 & 2  & 1
-            \end{pmatrix}
+            \end{pmatrix}                  \\
             \overset{Row3 = Row3 - Row2}{\longrightarrow}
             \begin{pmatrix}
                 6 & -4 & 1 \\
@@ -50,96 +50,76 @@
                 0 & 0  & 0
             \end{pmatrix}
         \end{matrix}
-    $$}
+    $}
+\paragraph{$\Rightarrow \left\{
+        \begin{matrix}
+            6x-4y=1 \\
+            2y=1
+        \end{matrix}
+        \Rightarrow
+        y=\frac{1}{2},\ x=\frac{1}{2}
+        \right.$}
 \paragraph{\textbf{Conclusion:} The system has no solution, since there exist two rows of zeros in the augmented matrix. This means that under a given constraint, the values of variables that satisfy all equations can not be found. Mathematically, this usually means that in vector space, the corresponding hyperplane (as defined by the equations) has no point of intersection with it.}
 \paragraph{At the same time, this system is underdetermined system. If the number of equations in the system is less than the number of variables, then the system may be underdetermined, there are infinitely many solutions. But if there are contradictions between the equations, then the system may still be unsolvable.}
-% \subsection{Gradient Estimation at $(0.5, 0.3)$ Using Linear Interpolation}
-% \paragraph{In this question I use the \textbf{finite difference method}. It is a commonly used numerical computational technique for estimating derivatives or partial derivatives of a function, especially when dealing with discrete data points.}
-% % 
-% % 
-% \paragraph{The finite difference method is typically applied in the following scenarios:}
-% % 
-% % 
-% \begin{itemize}
-%     \item A set of discrete data points but do not possess an analytical expression for the function.
-%     \item Compute the derivative of a function at a specific point, but lack an analytical expression for the derivative.
-% \end{itemize}
-% % 
-% \paragraph{I apply Central Difference Method (Here, h is a small step size):}
-% % 
-% % 
-% % 
-% \begin{equation}
-%     \nabla g(x,y)=(\frac{\partial g}{\partial x},\frac{\partial g}{\partial y})
-% \end{equation}
-% % 
-% % 
-% \begin{equation}
-%     \frac{\partial g}{\partial x}=\frac{g(x+h,y)-g(x-h,y)}{2 h}
-% \end{equation}
-% % 
-% % 
-% \begin{equation}
-%     \frac{\partial g}{\partial y}=\frac{g(x,y+h)-g(x,y-h)}{2 h}
-% \end{equation}
-% % 
-% % 
-% % 
-% % 
-% % 
-% \begin{align*}
-%     \frac{\partial g_{x=0.5, y=0.3}}{\partial x_{x=0.5}} & = \frac{g(0.6,0.3)-g(0.4,0.3)}{2 \times 0.1} \\
-%                                                          & = \frac{0.003-(-0.337)}{0.2}                 \\
-%                                                          & =1.7
-% \end{align*}
-% % 
-% % 
-% % 
-% \begin{align*}
-%     \frac{\partial g_{x=0.5, y=0.3}}{\partial y_{y=0.3}} & = \frac{g(0.5,0.4)-g(0.5,0.2)}{2 \times 0.1} \\
-%                                                          & = \frac{-0.234-(-0.038)}{0.2}                \\
-%                                                          & = -0.98
-% \end{align*}
-% % 
-% % 
-% % 
-% \paragraph{So, $\nabla g(x_{x=0.5},y_{y=0.3})=(1.7,-0.98)$.}
-% % 
-% % 
-% % 
-% % 
-% \subsection{Estimating Directional Derivative of g at $(0.5, 0.3)$ along the Vector $u=(1,-4)$}
-% % 
-% % 
-% % 
-% % 
-% \paragraph{To estimate the directional derivative of \(g\) at the point \((x, y) = (0.5, 0.3)\) along the vector \(\mathbf{u} = (1, -4)\), the directional derivative of \(g\) along the vector \(\mathbf{u} = (a, b)\) can be calculated using the gradient \(\nabla g\) as follows ((a,b) is the unitized $\vec{u}$.):}
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+\subsection{Vector Inclusion in Column Span}
+\paragraph{Determine whether or not the vector
+    $
+        \begin{pmatrix}
+            10 \\
+            10 \\
+            10
+        \end{pmatrix}
+    $
+    in the range (i.e., column span) of the matrix
+    $
+        \begin{pmatrix}
+            1 & 2 \\
+            0 & 2 \\
+            1 & 3
+        \end{pmatrix}
+    $.}
 
-% \begin{equation}
-%     D_{\mathbf{u}} g = \nabla g \cdot \mathbf{u} = \frac{\partial g}{\partial x} \cdot a + \frac{\partial g}{\partial y} \cdot b
-% \end{equation}
+% 
+% 
+% 
+% 
+% 
+\subsubsection{Analytics}
+\paragraph{We can perform row reduction or use the concept of matrix multiplication. The augmented matrix for the given system is:
+    \[ \left(\begin{array}{cc|c}
+            1 & 2 & 10 \\
+            0 & 2 & 10 \\
+            1 & 3 & 10
+        \end{array}\right) \]
+}
+% 
+% 
+% 
+% 
+% 
+\paragraph{Performing row operations:}
 
-% \paragraph{\(\mathbf{u} = (1, -4)\) and I have estimated the gradient components as \(\frac{\partial g}{\partial x}\) and \(\frac{\partial g}{\partial y}\).}
-% % 
-% % 
-% % 
-% %     
-% $$ \vec{u}=(\frac{u_x}{|u|},\frac{u_y}{|u|})=(\frac{1}{\sqrt{17}},\frac{-4}{\sqrt{17}}) $$
-% % 
-% % 
-% % 
-% $$ D_{\mathbf{u}} g = \left(\frac{\partial g}{\partial x}\right) \cdot \frac{1}{\sqrt{17}} + \left(\frac{\partial g}{\partial y}\right) \cdot (\frac{-4}{\sqrt{17}}) $$
+1. \( R_3 = R_3 - R_1 \)
+2. \( R_3 = R_3 - R_2 \)
 
-% \paragraph{Use the values for \(\frac{\partial g}{\partial x}\) and \(\frac{\partial g}{\partial y}\) to calculate \(D_{\mathbf{u}} g\).}
-% % 
-% % 
-% % 
-% $$ D_u g = 1.7 \times \frac{1}{\sqrt{17}} - 0.98 \times (\frac{-4}{\sqrt{17}}) = 1.3507 $$
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
+Results in:
+
+\[ \left[\begin{array}{cc|c} 1 & 2 & 10 \\ 0 & 2 & 10 \\ 0 & 1 & 0 \end{array}\right] \]
+
+Now, further row operations:
+
+3. \( R_1 = R_1 - 2R_2 \)
+4. \( R_3 = R_3 - \frac{1}{2}R_2 \)
+
+Result in:
+
+\[ \left[\begin{array}{cc|c} 1 & 0 & -10 \\ 0 & 2 & 10 \\ 0 & 0 & -5 \end{array}\right] \]
+
+The last row indicates that the system is inconsistent (no solution), which means that the vector \( \mathbf{v} = \begin{pmatrix} 10 \\ 10 \\ 10 \end{pmatrix} \) is not in the column span of the matrix \( A \). Therefore, the vector cannot be represented as a linear combination of the columns of matrix \( A \).
