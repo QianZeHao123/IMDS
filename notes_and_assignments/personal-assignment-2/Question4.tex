@@ -1,4 +1,117 @@
 \section{Question 4}
+% \subsection{}
+\paragraph{Consider a discrete dynamical system:
+    $
+        \begin{pmatrix}
+            x_{i+1} \\
+            y_{i+1} \\
+            z_{i+1}
+        \end{pmatrix} = A
+        \begin{pmatrix}
+            x_{i} \\
+            y_{i} \\
+            z_{i}
+        \end{pmatrix}
+    $.
+    $$
+        A=\begin{pmatrix}
+            1.03552632  & 0.01842105 & -0.16447368 \\
+            -0.00921053 & 1.10263158 & -0.00921053 \\
+            -0.13815789 & 0.03947368 & 1.06184211
+        \end{pmatrix}
+    $$
+}
+\subsection{Caluclate the Next State}
+\paragraph{If $(x_0,y_0,Z_0)=(100,100,100)$, caluclate $(x_1,y_1,z_1)$ and $(x_2,y_2,z_2)$}
+\subsubsection{Analytics}
+% 
+$$$$
+\begin{lstlisting}[style=pystyle]
+import numpy as np
+
+# Given matrix A
+A = np.array([
+    [1.03552632, 0.01842105, -0.16447368],
+    [-0.00921053, 1.10263158, -0.00921053],
+    [-0.13815789, 0.03947368, 1.06184211]
+])
+
+# Initial state (x0, y0, z0)
+initial_state = np.array([100, 100, 100])
+
+# Calculate the next states (x1, y1, z1) and (x2, y2, z2)
+state_1 = np.dot(A, initial_state)
+state_2 = np.dot(A, state_1)
+
+# Print the results
+print("Initial State:", initial_state)
+print("Next State (x1, y1, z1):", state_1)
+print("Next State (x2, y2, z2):", state_2)
+\end{lstlisting}
+% 
+% 
+% 
+\subsubsection{Result}
+\paragraph{Initial State: $[100\ 100\ 100]$ \\
+    Next State (x1, y1, z1): $[ 88.947369\ 108.421052\ 96.31579 ]$ \\
+    Next State (x2, y2, z2): $[ 78.26315889\ 117.84210399\ 94.26315877]$}
+% 
+% 
+% 
+% 
+\subsection{Combination of Eigenvectors}
+\paragraph{Given the initial state vector $(x_0, y_0, z_0)=(100, 100, 100)$, write this vector as a linear combination of eigenvectors of $A$.}
+\subsubsection{Analytics}
+% 
+% 
+% 
+% 
+% 
+\paragraph{To express the initial state vector \((x_0, y_0, z_0) = (100, 100, 100)\) as a linear combination of the eigenvectors of matrix \(A\), we need to find the eigenvectors and eigenvalues of \(A\).}
+% 
+\paragraph{Let \(v_1, v_2, v_3\) be the eigenvectors of \(A\) corresponding to the eigenvalues \(\lambda_1, \lambda_2, \lambda_3\), respectively.}
+% 
+\paragraph{The expression for the initial state vector as a linear combination of eigenvectors is given by:}
+% 
+\paragraph{\[ \mathbf{x}_0 = c_1 \mathbf{v}_1 + c_2 \mathbf{v}_2 + c_3 \mathbf{v}_3 \]}
+% 
+\paragraph{where \(c_1, c_2, c_3\) are the coefficients to be determined.}
+% 
+\paragraph{Let's calculate the eigenvectors and eigenvalues using NumPy:}
+% 
+$$$$
+% 
+\begin{lstlisting}[style=pystyle]
+import numpy as np
+
+# Given matrix A
+A = np.array([
+    [1.03552632, 0.01842105, -0.16447368],
+    [-0.00921053, 1.10263158, -0.00921053],
+    [-0.13815789, 0.03947368, 1.06184211]
+])
+
+# Calculate eigenvectors and eigenvalues
+eigenvalues, eigenvectors = np.linalg.eig(A)
+
+# Given initial state vector
+x0 = np.array([100, 100, 100])
+
+# Solve for coefficients c1, c2, c3
+coefficients = np.linalg.solve(eigenvectors, x0)
+
+# Print the results
+print("Eigenvectors:")
+print(eigenvectors)
+print("\nEigenvalues:")
+print(eigenvalues)
+print("\nInitial state vector as a linear combination of eigenvectors:")
+print(f"x0 = {coefficients[0]:.2f} * v1 + {coefficients[1]:.2f} * v2 + {coefficients[2]:.2f} * v3")
+\end{lstlisting}
+% 
+\paragraph{This code calculates the eigenvectors and eigenvalues of matrix \(A\) and then solves for the coefficients \(c_1, c_2, c_3\) in the expression \(\mathbf{x}_0 = c_1 \mathbf{v}_1 + c_2 \mathbf{v}_2 + c_3 \mathbf{v}_3\).}
+% 
+\paragraph{Note: The solution for coefficients may involve complex numbers if the eigenvalues are complex. If that's the case, you would represent the eigenvectors in terms of complex numbers.}
 % % 
 % % 
 % \subsection{Gradient Descent from $(2, 4)$ for $F(x, y) = x^2 + y^2 - 6sin(x - y)$}
