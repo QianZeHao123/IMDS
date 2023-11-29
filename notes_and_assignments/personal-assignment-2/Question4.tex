@@ -77,7 +77,7 @@ print("Next State (x2, y2, z2):", state_2)
 % 
 \paragraph{where \(c_1, c_2, c_3\) are the coefficients to be determined.}
 % 
-\paragraph{Let's calculate the eigenvectors and eigenvalues using NumPy:}
+\paragraph{Then, calculate the eigenvectors and eigenvalues using NumPy:}
 % 
 $$$$
 % 
@@ -111,122 +111,96 @@ print(f"x0 = {coefficients[0]:.2f} * v1 + {coefficients[1]:.2f} * v2 + {coeffici
 % 
 \paragraph{This code calculates the eigenvectors and eigenvalues of matrix \(A\) and then solves for the coefficients \(c_1, c_2, c_3\) in the expression \(\mathbf{x}_0 = c_1 \mathbf{v}_1 + c_2 \mathbf{v}_2 + c_3 \mathbf{v}_3\).}
 % 
+\paragraph{\textbf{Eigenvectors:}
+    $
+        \left[
+            \begin{matrix}
+                7.66651880e-01 & 7.07106781e-01  & -2.74721110e-01 \\
+                6.38876847e-02 & 4.18086088e-16  & -9.61523953e-01 \\
+                6.38876559e-01 & -7.07106781e-01 & 9.94056696e-10
+            \end{matrix}
+            \right]
+    $}
+\paragraph{\textbf{Eigenvalues:}
+    $
+        \left[ \begin{matrix}
+                0.90000001 & 1.2 & 1.
+            \end{matrix}\right]
+    $}
+\paragraph{\textbf{Initial state vector as a linear combination of eigenvectors:}$$ x_0 = 123.57 v_1 -29.77 v_2  -95.79 v_3 $$}
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+\subsection{Finding Initial State for Decreasing Norm}
+\paragraph{Find an initial state vector $(x_0,y_0,z_0)$ of norm 10 such that the norm of $(x_i,y_i,z_i)$ get smaller and smaller as $i \rightarrow \infty$.}
+% 
+% 
+% 
+% 
+\paragraph{The general form of the solution for a discrete dynamical system $\mathbf{v}_{i+1} = A \mathbf{v}_i $  is
+    $$ \mathbf{v}_i = c_1 \lambda_1^i \mathbf{v}_1 + c_2 \lambda_2^i \mathbf{v}_2 + c_3 \lambda_3^i \mathbf{v}_3 $$}
+% 
+% 
+% 
+% 
+% 
+\paragraph{where $ \lambda_1, \lambda_2, \lambda_3 $ are the eigenvalues of \(A\) and \(\mathbf{v}_1, \mathbf{v}_2, \mathbf{v}_3\) are the corresponding eigenvectors.}
+% 
+% 
+% 
+%
+\paragraph{To achieve a decreasing norm as \(i \rightarrow \infty\), we need to ensure that the eigenvalues have absolute values less than 1. If \(|\lambda_i| < 1\), then \(\lim_{i \to \infty} \lambda_i^i = 0\), and the norm of \(\mathbf{v}_i\) will decrease.}
+% 
+% 
+% 
+%
+$$$$
+% 
+% 
+% 
+% 
+\begin{lstlisting}[style=pystyle]
+import numpy as np
+import matplotlib.pyplot as plt
 
-% % 
-% % 
-% \subsection{Gradient Descent from $(2, 4)$ for $F(x, y) = x^2 + y^2 - 6sin(x - y)$}
-% % 
-% % 
-% % 
-% \begin{lstlisting}[style=pystyle]
-% import numpy as np
-% import matplotlib.pyplot as plt
-% import sympy as sp
+# Given matrix A
+A = np.array([
+    [1.03552632, 0.01842105, -0.16447368],
+    [-0.00921053, 1.10263158, -0.00921053],
+    [-0.13815789, 0.03947368, 1.06184211]
+])
 
-% # Define symbolic variables
-% x, y = sp.symbols('x y')
+# Calculate eigenvectors and eigenvalues
+eigenvalues, eigenvectors = np.linalg.eig(A)
 
-% # Define the function pandemic_model(x, y)
-% F = x**2 + y**2 - 6*sp.sin(x - y)
+# Find eigenvector corresponding to the eigenvalue with the maximum absolute value
+max_abs_eigenvalue_index = np.argmax(np.abs(eigenvalues))
+initial_eigenvector = eigenvectors[:, max_abs_eigenvalue_index]
 
-% # Initialize the starting point
-% x_current, y_current = 2, 4
+# Normalize the eigenvector to have a norm of 10
+initial_state = 10 * (initial_eigenvector / np.linalg.norm(initial_eigenvector))
 
-% # Choose the step size parameter
-% alpha = 0.1  # Change different values 0.1, 0.5, 1
+# Initialize lists to store norms and iterations
+norms = []
+iterations = range(50)  # You can adjust the number of iterations
 
-% # Create lists to store the trajectory
-% x_trajectory = [x_current]
-% y_trajectory = [y_current]
+# Calculate norms for each iteration
+for i in iterations:
+    current_state = np.linalg.matrix_power(A, i) @ initial_state
+    norm_i = np.linalg.norm(current_state)
+    norms.append(norm_i)
 
-% # Iterate for gradient descent
-% for step in range(3):
-%     # Calculate the gradient
-%     gradient_x = sp.diff(F, x).subs({x: x_current, y: y_current})
-%     gradient_y = sp.diff(F, y).subs({x: x_current, y: y_current})
-
-%     # Update the point
-%     x_current -= alpha * gradient_x
-%     y_current -= alpha * gradient_y
-
-%     # Add to the trajectory lists
-%     x_trajectory.append(x_current)
-%     y_trajectory.append(y_current)
-
-% # Create a contour plot
-% x_vals = np.linspace(-2, 4, 400)
-% y_vals = np.linspace(-2, 6, 400)
-% X, Y = np.meshgrid(x_vals, y_vals)
-% Z = X**2 + Y**2 - 6*np.sin(X - Y)
-% plt.contour(X, Y, Z, levels=50)
-% plt.colorbar()
-
-% plt.plot(x_trajectory, y_trajectory, marker='o', label='Gradient Descent Path')
-% plt.xlabel('x')
-% plt.ylabel('y')
-% plt.title('Contour Plot of F(x, y) with Gradient Descent Path')
-% plt.legend()
-% plt.grid(True)
-% plt.show()
-% \end{lstlisting}
-% % 
-% % 
-
-% \begin{multicols}{2} % 参数2表示创建两列布局
-%     \begin{figure}[H]
-%         \centering
-%         \includegraphics[width=0.5\textwidth]{pic/Gradient_Descent_Path_01.png}
-%         \caption{step size parameter = 0.1}
-%     \end{figure}
-%     \columnbreak
-%     \begin{figure}[H]
-%         \centering
-%         \includegraphics[width=0.5\textwidth]{pic/Gradient_Descent_Path_02.png}
-%         \caption{step size parameter = 0.2}
-%     \end{figure}
-% \end{multicols}
-
-% \begin{multicols}{2} % 参数2表示创建两列布局
-%     \begin{figure}[H]
-%         \centering
-%         \includegraphics[width=0.5\textwidth]{pic/Gradient_Descent_Path_05.png}
-%         \caption{step size parameter = 0.5}
-%     \end{figure}
-%     \columnbreak
-%     \begin{figure}[H]
-%         \centering
-%         \includegraphics[width=0.5\textwidth]{pic/Gradient_Descent_Path_10.png}
-%         \caption{step size parameter = 1.0}
-%     \end{figure}
-% \end{multicols}
-
-
-% \subsection{Gradient Descent with more steps}
-% \paragraph{\textbf{Analytics:}}
-% \begin{enumerate}
-%     \item Convergence to a Local Minimum: If the learning rate is chosen appropriately and the optimization problem is convex or has a single global minimum, gradient descent will converge to that minimum. may also be the global minimum.
-%     \item Convergence to a Saddle Point: In non-convex optimization problems, gradient descent may converge to a saddle point rather than a local minimum. Saddle points are points where the gradient is zero, but they are not necessarily optimal. 
-%     \item  Oscillation or Divergence: If the learning rate is too high, gradient descent may oscillate or even diverge. The model parameters may bounce back and forth, failing to converge. 
-%     \item Slowing Down Near the Minimum: As gradient descent gets closer to the minimum, the step sizes become smaller because the gradient becomes smaller.
-%     \item Flat Regions: In some optimization landscapes, there may be regions where the gradient is close to zero, but it is not a minimum. 
-%     \item Longer Matplotlib Randering Time: when I set iteration number to 100, the plot is very complex, with a large number of data points, labels, and graphical elements, it can take longer to render (About 2.5 minutes). 
-% \end{enumerate}
-
-% % Gradient_Descent_Step_10
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.75\textwidth]{pic/Gradient_Descent_Step_10.png}
-%     \caption{Set iteration for 10 times, learning rate = 0.1}
-% \end{figure}
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
-% % 
+# Plotting
+plt.plot(iterations, norms, marker='o')
+plt.title('Norm of (xi, yi, zi) over Iterations')
+plt.xlabel('Iterations')
+plt.ylabel('Norm')
+plt.grid(True)
+plt.show()
+    
+\end{lstlisting}
