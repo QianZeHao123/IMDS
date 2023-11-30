@@ -37,7 +37,9 @@ A = np.array([
 
 # Calculate eigenvectors and eigenvalues
 eigenvalues, eigenvectors = np.linalg.eig(A)
-
+print(eigenvalues)
+print(eigenvectors)
+print(eigenvectors[:,0])
 # Given vector (x, y, z)
 v = np.array([x, y, z])
 
