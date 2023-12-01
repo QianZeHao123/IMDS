@@ -39,12 +39,11 @@ A = np.array([
 eigenvalues, eigenvectors = np.linalg.eig(A)
 print(eigenvalues)
 print(eigenvectors)
-print(eigenvectors[:,0])
 # Given vector (x, y, z)
 v = np.array([x, y, z])
 
 # Solve for coefficients c1, c2, c3
-coefficients = np.linalg.solve(eigenvectors.T, v)
+coefficients = np.linalg.solve(eigenvectors, v)
 
 # Print the coefficients
 print("Coefficients (c1, c2, c3):", coefficients)

@@ -13,7 +13,8 @@
     Explain how you found this matrix.
 }
 \subsection{Analytics}
-\paragraph{Construct the matrix \(A\) using these eigenvectors as columns. The matrix \(A\) is given by:}
+\paragraph{Assume tha our target matrix is $A$ and we have the eigenvalues and eigenvectors. So we can use $A=P \Lambda P^{-1}$ to calculate it}
+\paragraph{Construct the matrix \(P\) using these eigenvectors as columns. The matrix \(P\) is given by:}
 % 
 % 
 % 
@@ -21,7 +22,19 @@
 % 
 % 
 % 
-\[ A = \begin{pmatrix} \mathbf{v}_1 & \mathbf{v}_2 & \mathbf{v}_3 \end{pmatrix} \]
+\paragraph{
+    $$
+        P =
+        \begin{pmatrix}
+            \mathbf{v}_1 & \mathbf{v}_2 & \mathbf{v}_3
+        \end{pmatrix} =
+        \begin{pmatrix}
+            1 & 0 & 0 \\
+            0 & 1 & 1 \\
+            1 & 2 & 0
+        \end{pmatrix}
+    $$
+}
 % 
 % 
 % 
@@ -29,6 +42,7 @@
 % 
 % 
 % 
+$$$$
 \begin{lstlisting}[style=pystyle]
 import numpy as np
 
@@ -40,28 +54,31 @@ lambda_3 = 5
 # Given eigenvectors
 v1 = np.array([1, 0, 1])
 v2 = np.array([0, 1, 2])
-v3 = np.array([0, 1, 10])
+v3 = np.array([0, 1, 0])
 
 # Construct the matrix A
-A = np.column_stack((v1, v2, v3))
+P = np.column_stack((v1, v2, v3))
+lambda_matrix = np.array(
+    [[lambda_1, 0, 0], 
+        [0, lambda_2, 0], 
+        [0, 0, lambda_3]])
 
-# Display the matrix A
-print("Matrix A:")
+# Compute the matrix A with P * lambda * P^{-1}
+A = P@lambda_matrix@np.linalg.inv(P)
 print(A)
-
-# Check if A has the correct eigenvalues and eigenvectors
-for i in range(3):
-    result = np.dot(A, A[:, i])
-    print(f"Eigenvalue {i+1}:", result)
-    
 \end{lstlisting}
-\paragraph{\textbf{Eigenvalue 1:} $\left[\begin{matrix}
-                1 & 1 & 11
-            \end{matrix}\right]$}
-\paragraph{\textbf{Eigenvalue 2:} $\left[\begin{matrix}
-                0 & 3 & 22
-            \end{matrix}\right]$}
-\paragraph{\textbf{Eigenvalue 3:} $\left[\begin{matrix}
-                0 & 11 & 102
-            \end{matrix}\right]$}
 % 
+% 
+% 
+% 
+% 
+\paragraph{\textbf{The matrix is:}
+    $$
+        \left[
+            \begin{matrix}
+                3.   & 0. & 0.   \\
+                0.5  & 5. & -0.5 \\
+                -1. & 0. & 4.
+            \end{matrix}
+            \right]
+    $$}

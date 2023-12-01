@@ -8,16 +8,15 @@ lambda_3 = 5
 # Given eigenvectors
 v1 = np.array([1, 0, 1])
 v2 = np.array([0, 1, 2])
-v3 = np.array([0, 1, 10])
+v3 = np.array([0, 1, 0])
 
 # Construct the matrix A
-A = np.column_stack((v1, v2, v3))
+P = np.column_stack((v1, v2, v3))
+lambda_matrix = np.array(
+    [[lambda_1, 0, 0], 
+     [0, lambda_2, 0], 
+     [0, 0, lambda_3]])
 
-# Display the matrix A
-print("Matrix A:")
+# Compute the matrix A with P * lambda * P^{-1}
+A = P@lambda_matrix@np.linalg.inv(P)
 print(A)
-
-# Check if A has the correct eigenvalues and eigenvectors
-for i in range(3):
-    result = np.dot(A, A[:, i])
-    print(f"Eigenvalue {i+1}:", result)

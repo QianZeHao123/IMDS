@@ -69,11 +69,66 @@ print("Next State (x2, y2, z2):", state_2)
 % 
 \paragraph{To express the initial state vector \((x_0, y_0, z_0) = (100, 100, 100)\) as a linear combination of the eigenvectors of matrix \(A\), we need to find the eigenvectors and eigenvalues of \(A\).}
 % 
+% 
+% 
+% 
+% 
+% 
+\paragraph{let: $$|\lambda E - A| = 0 \Rightarrow \lambda_1,\lambda_2,\lambda_3$$}
+\paragraph{Bring $\lambda_1,\lambda_2,\lambda_3$ back to matrix $(\lambda E - A)$ and get the Eigenvectors:$$
+        \begin{pmatrix}
+            v_{11} & v_{21} & v_{31} \\
+            v_{12} & v_{22} & v_{32} \\
+            v_{13} & v_{23} & v_{33}
+        \end{pmatrix}
+    $$}
+% 
+% 
+% 
+% 
+% 
 \paragraph{Let \(v_1, v_2, v_3\) be the eigenvectors of \(A\) corresponding to the eigenvalues \(\lambda_1, \lambda_2, \lambda_3\), respectively.}
 % 
 \paragraph{The expression for the initial state vector as a linear combination of eigenvectors is given by:}
 % 
 \paragraph{\[ \mathbf{x}_0 = c_1 \mathbf{v}_1 + c_2 \mathbf{v}_2 + c_3 \mathbf{v}_3 \]}
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+\paragraph{$$
+        \begin{pmatrix}
+            x_0 \\ y_0 \\ z_0
+        \end{pmatrix} =
+        c_1 \begin{pmatrix}
+            v_{11} \\ v_{12} \\ v_{13}
+        \end{pmatrix} +
+        c_2 \begin{pmatrix}
+            v_{21} \\ v_{22} \\ v_{23}
+        \end{pmatrix} +
+        c_3 \begin{pmatrix}
+            v_{31} \\ v_{32} \\ v_{33}
+        \end{pmatrix}=
+        \begin{pmatrix}
+            v_{11} & v_{21} & v_{31} \\
+            v_{12} & v_{22} & v_{32} \\
+            v_{13} & v_{23} & v_{33}
+        \end{pmatrix}
+        \begin{pmatrix}
+            c_1 \\ c_2 \\ c_3
+        \end{pmatrix}
+    $$}
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
 % 
 \paragraph{where \(c_1, c_2, c_3\) are the coefficients to be determined.}
 % 
@@ -111,6 +166,12 @@ print(f"x0 = {coefficients[0]:.2f} * v1 + {coefficients[1]:.2f} * v2 + {coeffici
 % 
 \paragraph{This code calculates the eigenvectors and eigenvalues of matrix \(A\) and then solves for the coefficients \(c_1, c_2, c_3\) in the expression \(\mathbf{x}_0 = c_1 \mathbf{v}_1 + c_2 \mathbf{v}_2 + c_3 \mathbf{v}_3\).}
 % 
+\paragraph{\textbf{Eigenvalues:}
+    $
+        \left[ \begin{matrix}
+                0.90000001 & 1.2 & 1.
+            \end{matrix}\right]
+    $}
 \paragraph{\textbf{Eigenvectors:}
     $
         \left[
@@ -120,12 +181,6 @@ print(f"x0 = {coefficients[0]:.2f} * v1 + {coefficients[1]:.2f} * v2 + {coeffici
                 6.38876559e-01 & -7.07106781e-01 & 9.94056696e-10
             \end{matrix}
             \right]
-    $}
-\paragraph{\textbf{Eigenvalues:}
-    $
-        \left[ \begin{matrix}
-                0.90000001 & 1.2 & 1.
-            \end{matrix}\right]
     $}
 \paragraph{\textbf{Initial state vector as a linear combination of eigenvectors:}$$ x_0 = 123.57 v_1 -29.77 v_2  -95.79 v_3 $$}
 % 
@@ -146,7 +201,7 @@ print(f"x0 = {coefficients[0]:.2f} * v1 + {coefficients[1]:.2f} * v2 + {coeffici
     $$ \mathbf{v}_i = c_1 \lambda_1^i \mathbf{v}_1 + c_2 \lambda_2^i \mathbf{v}_2 + c_3 \lambda_3^i \mathbf{v}_3 $$}
 % 
 % 
-% 
+%
 % 
 % 
 \paragraph{where $ \lambda_1, \lambda_2, \lambda_3 $ are the eigenvalues of \(A\) and \(\mathbf{v}_1, \mathbf{v}_2, \mathbf{v}_3\) are the corresponding eigenvectors.}
@@ -166,7 +221,6 @@ $$$$
 % 
 \begin{lstlisting}[style=pystyle]
 import numpy as np
-import matplotlib.pyplot as plt
 
 # Given matrix A
 A = np.array([
@@ -179,28 +233,30 @@ A = np.array([
 eigenvalues, eigenvectors = np.linalg.eig(A)
 
 # Find eigenvector corresponding to the eigenvalue with the maximum absolute value
-max_abs_eigenvalue_index = np.argmax(np.abs(eigenvalues))
-initial_eigenvector = eigenvectors[:, max_abs_eigenvalue_index]
+min_abs_eigenvalue_index = np.argmin(np.abs(eigenvalues))
+initial_eigenvector = eigenvectors[:, min_abs_eigenvalue_index]
 
 # Normalize the eigenvector to have a norm of 10
-initial_state = 10 * (initial_eigenvector / np.linalg.norm(initial_eigenvector))
+initial_state = 10 * (initial_eigenvector /
+                        np.linalg.norm(initial_eigenvector))
 
-# Initialize lists to store norms and iterations
-norms = []
-iterations = range(50)  # You can adjust the number of iterations
+# Print the results
+print("Initial state vector with norm 10:", initial_state)
 
-# Calculate norms for each iteration
-for i in iterations:
-    current_state = np.linalg.matrix_power(A, i) @ initial_state
-    norm_i = np.linalg.norm(current_state)
-    norms.append(norm_i)
-
-# Plotting
-plt.plot(iterations, norms, marker='o')
-plt.title('Norm of (xi, yi, zi) over Iterations')
-plt.xlabel('Iterations')
-plt.ylabel('Norm')
-plt.grid(True)
-plt.show()
-    
 \end{lstlisting}
+% 
+% 
+% 
+%
+% 
+% 
+% 
+%
+\paragraph{\textbf{Initial state vector with norm 10:}
+$$
+\left[
+    \begin{matrix}
+        7.6665188 & 0.63887685 & 6.38876559
+    \end{matrix}
+    \right]
+$$}
