@@ -1,7 +1,215 @@
 \section{Methods}
 % 
 % 
-\subsection{Data Feature Extraction with Fourier Transformation}
+\subsection{Data Feature Extraction with Fourier Transform}
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+\paragraph{Given that the Premier League data we crawled from the web is relatively limited, we are eager to enrich our feature set through feature extraction. To this end, we decided to treat historical match data as an information-rich signal and adopt time-domain and frequency-domain feature extraction methods to extract more key features from it, laying the foundation for a comprehensive analysis of the team's performance.}
+% 
+\paragraph{Therefore, in our research, we introduced Fourier transform, a powerful mathematical tool, to transform historical game data from time domain to frequency domain. Fourier transform is a method of converting time domain signals into frequency domain representation. Through this conversion, we are expected to reveal the underlying periodicity and frequency information in the data, providing strong support for deeper analysis and understanding.}
+% 
+% 
+\paragraph{We will give the proof of the Fourier transform in the appendix section (\ref{sec:Fourier}). In its continuous form: $$ X(f) = \int_{-\infty}^{\infty} x(t) \cdot e^{-j2\pi ft} dt $$ Among them, X represents the frequency domain signal, and x represents the time domain signal. In the discrete form (because our data is discrete), we will use discrete Fourier transform methods such as fast Fourier transform (FFT) to calculate: $$ X(k) = \sum_{n=0}^{N-1} x(n) \cdot e^{-j2\pi kn/N} $$}
+% 
+% 
+\paragraph{Time Domain feature extraction will allow us to delve into the Time Domain evolution of the data, revealing overall trends in the team over the past few years. By analyzing the time variability of metrics such as points, goals scored, goals conceded, etc., we can hopefully discover time-related patterns, such as seasonal changes or performance trends over a specific period.}
+% 
+\paragraph{At the same time, frequency domain feature extraction will help us understand the periodicity and frequency present in the data. This approach will help identify recurring seasonal patterns, allowing us to gain a more complete understanding of how a team's performance changes throughout the season. We will also explore whether specific events have a frequency-domain impact on team performance.}
+% 
+\paragraph{By converting historical match data into time and frequency domain features, we expect to be able to mine deeper information and provide a richer and more accurate feature set for our data-driven models to better interpret and predict Premier League matches. The team's performance. Here are the Time and Frequency Domain Features we will use:}
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+\begin{table}[h]
+    \centering
+    \captionof{table}{Time Domain Features and Formulas}
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Time Domain Feature} & \textbf{Formula for Time Domain Feature}                                                                                                         \\
+        \hline
+        Mean                         & $\text{mean} = \frac{1}{N} \sum_{i=1}^{N} x_i$                                                                                                   \\
+        \hline
+        Standard Deviation           & $\text{std\_dev} = \sqrt{\frac{1}{N} \sum_{i=1}^{N} (x_i - \text{mean})^2}$                                                                      \\
+        \hline
+        Root Mean Square (RMS)       & $\text{rms} = \sqrt{\frac{1}{N} \sum_{i=1}^{N} x_i^2}$                                                                                           \\
+        \hline
+        Skewness                     & $\text{skewness} = \frac{\frac{1}{N} \sum_{i=1}^{N} (x_i - \text{mean})^3}{\left(\frac{1}{N} \sum_{i=1}^{N} (x_i - \text{mean})^2\right)^{3/2}}$ \\
+        \hline
+        Kurtosis                     & $\text{kurtosis} = \frac{\frac{1}{N} \sum_{i=1}^{N} (x_i - \text{mean})^4}{\left(\frac{1}{N} \sum_{i=1}^{N} (x_i - \text{mean})^2\right)^2} - 3$ \\
+        \hline
+        Max Value                    & $\text{max\_value} = \max(\text{signal\_array})$                                                                                                 \\
+        \hline
+        Min Value                    & $\text{min\_value} = \min(\text{signal\_array})$                                                                                                 \\
+        \hline
+        Median                       & $\text{median} = \text{np.median}(\text{signal\_array})$                                                                                         \\
+        \hline
+        Zero Crossing Rate           & $\text{zero\_crossing\_rate} = \frac{\sum_{i=1}^{N-1} (\text{sign}(x_{i+1}) - \text{sign}(x_i)) \neq 0}{N}$                                      \\
+        \hline
+    \end{tabular}
+\end{table}
+% 
+% 
+% 
+% 
+% 
+\begin{table}[h]
+    \centering
+    \captionof{table}{Frequency Domain Features and Formulas}
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Frequency Domain Feature} & \textbf{Formula for Frequency Domain Feature}                                                                                            \\
+        \hline
+        Dominant Frequency                & $\text{dominant\_frequency} = \arg\max(\text{magnitude\_spectrum})$                                                                      \\
+        \hline
+        Max Frequency Magnitude           & $\text{max\_frequency\_magnitude} = \max(\text{magnitude\_spectrum})$                                                                    \\
+        \hline
+        Power Spectral Density            & $\text{power\_spectral\_density} = \frac{1}{N} \sum_{i=1}^{N} \text{magnitude\_spectrum}^2$                                              \\
+        \hline
+        Spectral Entropy                  & $\text{spectral\_entropy} = \text{entropy}(\text{magnitude\_spectrum})$                                                                  \\
+        \hline
+        Total Power                       & $\text{total\_power} = \sum_{i=1}^{N} x_i^2$                                                                                             \\
+        \hline
+        Centroid Frequency                & $\text{centroid\_frequency} = \frac{\sum_{i=1}^{N} i \cdot \text{magnitude\_spectrum}[i]}{\sum_{i=1}^{N} \text{magnitude\_spectrum}[i]}$ \\
+        \hline
+    \end{tabular}
+\end{table}
+% 
+% 
+% 
+% 
+\paragraph{We apply these formulas to our data (historical matches). 'Magnitude\_spectrum' is the magnitude of the spectrum calculated by Fourier transform.}
+% 
+% 
+% 
+% 
 \subsection{Correlation Analysis}
+% 
+% 
+% 
+\paragraph{After feature extraction, we are preparing to conduct a thorough analysis of the relationship between various team indicators (MP, Win, Draw, Loss, GF, GA, GD and other features generated by last part) and the final score (Points) through correlation analysis. To choose an appropriate correlation analysis method, we will compare the characteristics of the Pearson correlation coefficient and the Spearman rank correlation coefficient, ultimately selecting the Spearman rank correlation coefficient for correlation analysis in English Premier League football.}
+% 
+% 
+\begin{table}[h]
+    \centering
+    \caption{Characteristics of Pearson and Spearman Correlation Coefficients}
+    % \begin{tabular}{|p{2.5cm}|p{5cm}|p{5cm}|}
+    \begin{tabularx}{\textwidth}{|p{2.5cm}|X|X|}
+        % \toprule
+        \hline
+        Characteristics     & Pearson Correlation Coefficient                                                                                       & Spearman Rank Correlation Coefficient                                                                                      \\
+        % \midrule
+        \hline
+        Calculation         & $   r_{xy}=\frac{\sum{(X_i - \bar{X})(Y_i - \bar{Y})}}{\sqrt{\sum{(X_i - \bar{X})^2} \cdot \sum{(Y_i - \bar{Y})^2}}}$ & $ \rho = 1 - \frac{6\sum{d_i^2}}{n(n^2 - 1)}$                                                                              \\
+        \hline
+        Data Type           & Continuous variables                                                                                                  & Ordinal variables and non-linear relationships                                                                             \\
+        \hline
+        Linear Assumption   & Assumes a linear relationship between variables                                                                       & Does not make a specific linear assumption about the relationship                                                          \\
+        \hline
+        Applicability       & Works well when data is approximately normally distributed                                                            & Applicable to ordinal variables, non-linear relationships, or when data distribution does not follow a normal distribution \\
+        \hline
+        Outlier Sensitivity & Sensitive to outliers                                                                                                 & Relatively insensitive to outliers as it is based on ranks                                                                 \\
+        \hline
+        Interpretation      & Emphasizes the strength and direction of linear relationships                                                         & Focuses more on the ordinal relationship between variables                                                                 \\
+        % \bottomrule
+        \hline
+    \end{tabularx}
+\end{table}
+% 
+% 
+% 
+\paragraph{After comparing the above characteristics, we have decided to choose the Spearman rank correlation coefficient as our correlation analysis method. This is because in the context of English Premier League football matches, our data may not follow a normal distribution, and the Spearman rank correlation coefficient is more robust to non-linear relationships and ordinal variables, while being relatively insensitive to outliers. This makes it more suitable for our research purposes.}
+% 
+% 
+\paragraph{In the report, we will use the Spearman rank correlation coefficient to explore the relationship between various team indicators and the final score, providing a more comprehensive understanding of the factors influencing different aspects of English Premier League football matches.}
+% 
+% 
+% 
 \subsection{Principal Component Analysis}
-\subsection{Comparison: Entropy Weight Method}
+% 
+% 
+% 
+% 
+% 
+\paragraph{Principal Component Analysis (PCA) is a technique for data dimensionality reduction and feature extraction. It achieves this by identifying the principal directions (principal components) in the data to reduce its dimensionality. Below are the detailed calculation steps for PCA, introducing an example dataset:}
+% 
+% 
+% 
+% 
+\paragraph{Assume we have the following dataset:}
+\begin{table}[h]
+    \centering
+    \caption{Example Dataset}
+    \begin{tabular}{cccccccc}
+        \toprule
+        MP & Win & Draw & Loss & GF & GA & GD & Others \\
+        \midrule
+        38 & 27  & 6    & 5    & 80 & 22 & 58 & ...    \\
+        38 & 25  & 10   & 3    & 65 & 26 & 39 & ...    \\
+        38 & 24  & 11   & 3    & 74 & 31 & 43 & ...    \\
+        38 & 21  & 13   & 4    & 67 & 28 & 39 & ...    \\
+        38 & 19  & 8    & 11   & 55 & 33 & 22 & ...    \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+% 
+% 
+% 
+% 
+% 
+% 
+\subsection*{Steps:}
+% 
+\subsubsection*{1. Standardize Data:}
+% 
+\paragraph{Standardize each feature, making its mean 0 and standard deviation 1. The standardization formula is:}
+% 
+\[ Z = \frac{(X - \bar{X})}{\sigma} \]
+% 
+\paragraph{where \(X\) is the original data, \(\bar{X}\) is the mean, and \(\sigma\) is the standard deviation. Applying this to the dataset yields the standardized data.}
+% 
+\subsubsection*{2. Compute Covariance Matrix:}
+% 
+\paragraph{The covariance matrix is the covariance matrix of the standardized data. The covariance matrix's formula is:}
+% 
+\[ \text{Cov}(X, Y) = \frac{\sum{(X_i - \bar{X})(Y_i - \bar{Y})}}{n-1} \]
+% 
+\paragraph{where \(X\) and \(Y\) are two features, \(\bar{X}\) and \(\bar{Y}\) are their means. After calculating the covariance matrix, we get:}
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+\subsubsection*{3. Compute Eigenvalues and Eigenvectors:}
+% 
+\paragraph{Perform eigenvalue decomposition on the covariance matrix to obtain eigenvalues and their corresponding eigenvectors. Eigenvalues represent variance in the data, and eigenvectors are the directions of principal components.}
+% 
+\subsubsection*{4. Select Principal Components:}
+% 
+\paragraph{Based on the magnitude of eigenvalues, choose the number of principal components to retain. Typically, you might select components that capture a certain percentage of variance, such as 90\%.}
+% 
+\subsubsection*{5. Build Projection Matrix:}
+% 
+\paragraph{Compose a matrix with the selected eigenvectors as columns. This matrix serves as the projection matrix, mapping the original data into the new principal component space.}
+% 
+\subsubsection*{6. Project to New Principal Component Space:}
+\paragraph{Multiply the standardized data by the projection matrix to obtain the reduced-dimensional data.}
+% 
+% 
+% 
+% \subsection{Comparison: Entropy Weight Method}
