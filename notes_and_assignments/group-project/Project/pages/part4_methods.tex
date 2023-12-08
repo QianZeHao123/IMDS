@@ -198,10 +198,13 @@
 \subsubsection*{3. Compute Eigenvalues and Eigenvectors:}
 % 
 \paragraph{Perform eigenvalue decomposition on the covariance matrix to obtain eigenvalues and their corresponding eigenvectors. Eigenvalues represent variance in the data, and eigenvectors are the directions of principal components.}
+\paragraph{let: $$|\lambda E - A| = 0 \Rightarrow \lambda_1,\lambda_2,...,\lambda_n$$}
+% 
+\paragraph{Bring $\lambda_1,\lambda_2,...,\lambda_n$ back to matrix $(\lambda E - A)$ and get the Eigenvector:}
 % 
 \subsubsection*{4. Select Principal Components:}
 % 
-\paragraph{Based on the magnitude of eigenvalues, choose the number of principal components to retain. Typically, you might select components that capture a certain percentage of variance, such as 90\%.}
+\paragraph{Based on the magnitude of eigenvalues, choose the number of principal components to retain. Typically, we might select components that capture a certain percentage of variance, such as 90\%.}
 % 
 \subsubsection*{5. Build Projection Matrix:}
 % 
@@ -213,3 +216,4 @@
 % 
 % 
 % \subsection{Comparison: Entropy Weight Method}
+\paragraph{In the appendix section of the report, we have included a detailed explanation and implementation of the PCA algorithm using the Scikit-Learn library. We provide corresponding Python code along with a comprehensive breakdown of each step.}\ref{sec:PCA}
