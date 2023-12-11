@@ -4,7 +4,29 @@
 % 
 \section{A breif proof for Fourier Transform}\label{sec:Fourier}
 % 
-Equation
+\paragraph{The continuous Fourier Transform of a function \( f(t) \) is given by:}
+\[ F(\omega) = \int_{-\infty}^{\infty} f(t) \cdot e^{-i \omega t} \,dt \]
+\paragraph{To prove this, we start with the Fourier series representation of a periodic function. Let \( T \) be the period of \( f(t) \). The Fourier series expansion is given by:}
+% 
+\[ f(t) = \sum_{n=-\infty}^{\infty} c_n e^{i \omega_n t} \]
+% 
+\paragraph{Here, \( c_n \) are the Fourier coefficients, and \( \omega_n = \frac{2\pi n}{T} \) are the angular frequencies.}
+% 
+\paragraph{Now, consider the limit as \( T \) approaches infinity, turning the sum into an integral:}
+% 
+\[ f(t) = \lim_{T \to \infty} \sum_{n=-\infty}^{\infty} c_n e^{i \omega_n t} \]
+% 
+\paragraph{This leads to the continuous Fourier Transform integral:}
+% 
+\[ F(\omega) = \lim_{T \to \infty} \int_{-\frac{T}{2}}^{\frac{T}{2}} f(t) e^{-i \omega t} \,dt \]
+% 
+\paragraph{As \( T \) approaches infinity, the limits of integration become \( -\infty \) to \( \infty \):}
+% 
+\[ F(\omega) = \lim_{T \to \infty} \int_{-\infty}^{\infty} f(t) e^{-i \omega t} \,dt \]
+% 
+\paragraph{This is essentially the definition of the continuous Fourier Transform. The limit is introduced to handle functions that are not strictly periodic.}
+% 
+\paragraph{The rigorous proof involves showing that this limit exists for a wide class of functions and exploring the convergence properties. It requires knowledge of mathematical analysis and complex analysis.}
 % 
 % 
 % 
@@ -12,9 +34,35 @@ Equation
 % 
 % 
 \section{Data Set}
+\paragraph{Due to the large number of datasets and the number of columns, we uploaded the data to GitHub, and below are links to the various datasets.}
 \subsection{Data Original Source}
 \paragraph{The data set we got from FootyStats.org and we saved them with csv format.}
-\href{URL}{text}
+\paragraph{\href{https://github.com/QianZeHao123/IMDS/tree/main/notes_and_assignments/group-project/src/Data}{Click the Hyperlink here and Review the orginal data set.}}
+% 
+% 
+% 
+\subsection{The processed dataset}
+\paragraph{\href{https://github.com/QianZeHao123/IMDS/blob/main/notes_and_assignments/group-project/src/Results/2023_24_General.csv}{A data set for combining the 2023-24 season data and historical features.}}
+% 
+% 
+\paragraph{\href{https://github.com/QianZeHao123/IMDS/blob/main/notes_and_assignments/group-project/src/Results/2023_24_Processed.csv}{Data set for caculating the Correlation between variables and Points}}
+% 
+% 
+\paragraph{\href{https://github.com/QianZeHao123/IMDS/blob/main/notes_and_assignments/group-project/src/Results/2023_24_Processed_PCA.csv}{Data set for caculating PCA}}
+% 
+% 
+\subsection{Dataset for Saving Results}
+% 
+% 
+\paragraph{\href{https://github.com/QianZeHao123/IMDS/blob/main/notes_and_assignments/group-project/src/Results/Cor_result.csv}{Results about Correlation between variables and Points}}
+% 
+% 
+\paragraph{\href{https://github.com/QianZeHao123/IMDS/blob/main/notes_and_assignments/group-project/src/Results/pca_result.csv}{Results about PCA}}
+% 
+% 
+% 
+% 
+% 
 % 
 % 
 % 
@@ -201,6 +249,274 @@ for year in Years:
 driver.quit()
 
 \end{lstlisting}
+% 
+% 
+% 
+% 
+\section{Feature Extract Function}\label{sec:FEF}
+% 
+% 
+\subsection{extractFeatures.py}
+\begin{lstlisting}[style=pystyle]
+import pandas as pd
+import numpy as np
+from scipy.stats import skew, kurtosis
+from scipy.fftpack import fft
+from scipy.signal import find_peaks
+from scipy.stats import entropy
+
+
+def extract_features(signal):
+    features = {}
+
+    # Convert the column to numeric, handling non-numeric values
+    signal_numeric = pd.to_numeric(signal, errors='coerce')
+
+    # Replace or remove specific non-numeric values
+    signal_numeric.replace('ALIGNED', np.nan, inplace=True)
+
+    # Remove NaN values or use interpolation as needed
+    signal_numeric.dropna(inplace=True)
+
+    # Convert to NumPy array
+    signal_array = signal_numeric.to_numpy()
+
+    # Check if the array is not empty
+    if len(signal_array) > 0:
+        # Time-domain features
+        features['mean'] = np.mean(signal_array)
+        features['std_dev'] = np.std(signal_array)
+        features['rms'] = np.sqrt(np.mean(np.square(signal_array)))
+        features['skewness'] = skew(signal_array)
+        features['kurtosis'] = kurtosis(signal_array)
+        features['max_value'] = np.max(signal_array)
+        features['min_value'] = np.min(signal_array)
+        features['median'] = np.median(signal_array)
+        features['iqr'] = np.percentile(
+            signal_array, 75) - np.percentile(signal_array, 25)
+        features['zero_crossing_rate'] = np.sum(
+            np.diff(np.sign(signal_array)) != 0) / len(signal_array)
+
+        # Frequency-domain features using FFT
+        try:
+            fft_result = fft(signal_array)
+            magnitude_spectrum = np.abs(fft_result)
+
+            features['dominant_frequency'] = np.argmax(magnitude_spectrum)
+            features['max_frequency_magnitude'] = np.max(magnitude_spectrum)
+
+            # Statistical measures
+            # features['auto_correlation'] = np.correlate(
+            #     signal_array, signal_array, mode='full')
+
+            # Frequency-domain features
+            features['power_spectral_density'] = np.mean(
+                np.square(magnitude_spectrum))
+            features['total_power'] = np.sum(np.square(signal_array))
+            features['spectral_entropy'] = entropy(magnitude_spectrum)
+            features['centroid_frequency'] = np.sum(np.arange(
+                len(magnitude_spectrum)) * magnitude_spectrum) / np.sum(magnitude_spectrum)
+
+            # Time-frequency features
+            # Add your wavelet transform code here
+            # Example using FFT for STFT
+            # features['wavelet_coefficients'] = []
+            # features['stft'] = np.abs(np.fft.fftshift(
+            # np.fft.fft(signal_array)))
+
+            # Other features
+            # features['peaks_count'], _ = find_peaks(signal_array)
+
+        except ValueError as e:
+            print(f"Error in FFT calculation: {e}")
+
+    return features
+\end{lstlisting}
+% 
+% 
+% 
+% 
+% 
+% 
+\subsection{Using Data Extraction Function}
+% 
+\begin{lstlisting}[style=pystyle]
+
+import os
+import pandas as pd
+from extractFeatures import extract_features
+
+# Folder path containing all CSV files
+folder_path = "./Data"
+
+# Target team
+target_team = "Everton FC"
+target_teams = ['Manchester City FC', 'Liverpool FC', 'Arsenal FC',
+                'Tottenham Hotspur FC', 'Aston Villa FC',
+                'Manchester United FC', 'Newcastle United FC',
+                'Brighton & Hove Albion FC', 'West Ham United FC',
+                'Chelsea FC', 'Brentford FC', 'Crystal Palace FC',
+                'Wolverhampton Wanderers FC', 'Nottingham Forest FC',
+                'Fulham FC', 'AFC Bournemouth', 'Luton Town FC',
+                'Sheffield United FC', 'Everton FC', 'Burnley FC']
+# List of all CSV file names
+csv_files = [
+    '2007_08.csv', '2008_09.csv', '2009_10.csv', '2010_11.csv',
+    '2011_12.csv', '2012_13.csv', '2013_14.csv', '2014_15.csv',
+    '2015_16.csv', '2016_17.csv', '2017_18.csv', '2018_19.csv',
+    '2019_20.csv', '2020_21.csv', '2021_22.csv', '2022_23.csv'
+]
+
+
+
+def get_result_df(target_team):
+    # Create an empty DataFrame to store the extracted data
+    result_df = pd.DataFrame(
+        columns=["File", "Team", "MP", "Win",
+                    "Draw", "Loss", "GF", "GA",
+                    "GD", "Points"]
+    )
+    # Loop through each CSV file
+    for csv_file in csv_files:
+        # Build the full path of the CSV file
+        file_path = os.path.join(folder_path, csv_file)
+
+        # Read the CSV file
+        df = pd.read_csv(file_path)
+
+        # Extract data for the target team
+        team_data = df[df["Team"] == target_team]
+
+        # If data for the target team is found, add it to the result DataFrame
+        if not team_data.empty:
+            # Use pd.concat to add the target team's data from the current file to the result DataFrame,
+            # and add the file name column
+            result_df = pd.concat(
+                [result_df, team_data.assign(File=csv_file)], ignore_index=True)
+
+    return result_df
+
+# print(result_df)
+# result_df.to_csv("output.csv", index=False)
+
+selected_columns = ['Win','Draw','Loss','GF','GA','GD','Points']
+
+dfs = []
+
+for target_team in target_teams:
+    result_df = get_result_df(target_team)
+
+
+    features_dict = {}
+    for column in selected_columns:
+        selected_data = result_df[column]
+        features_column = extract_features(selected_data)
+        features_dict[column] = features_column
+
+    # Flatten the nested structure and convert to a DataFrame
+    flattened_features = {}
+    for column, feature_dict in features_dict.items():
+        for key, value in feature_dict.items():
+            flattened_features[f'{column}_{key}'] = value
+
+    flattened_df = pd.DataFrame([flattened_features])
+
+    # Append the DataFrame to the list
+    dfs.append(flattened_df)
+
+# Concatenate all DataFrames into a single DataFrame
+
+result_df = pd.concat(dfs, ignore_index=True)
+
+df_23_24 = pd.read_csv('./Data/2023_24.csv')
+result = pd.concat([df_23_24, result_df], axis=1)
+# Export the result to a CSV file
+result.to_csv("2023_24_General.csv", index=False)
+\end{lstlisting}
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+\section{Correlation Calculating}\label{sec:CC}
+% 
+% 
+% 
+\begin{lstlisting}[style=pystyle]
+# Import the pandas library
+import pandas as pd
+
+# Read the CSV file
+# Replace '2023_24_Processed.csv' with the actual file name and path
+df = pd.read_csv('./Results/2023_24_Processed.csv')
+
+# Define the target column for Spearman correlation
+target_column = 'Points'
+
+# Calculate Spearman correlation between the target column and all other columns
+correlation_result = df.corrwith(df[target_column], method='spearman')
+
+# Create a DataFrame containing the correlation results
+result_df = pd.DataFrame({
+    'Positive Correlation': correlation_result[correlation_result > 0].sort_values(ascending=False),
+    'Negative Correlation': correlation_result[correlation_result < 0].sort_values(ascending=True)
+})
+
+# Print the results
+print(result_df)
+
+# Save the results to a CSV file
+result_df.to_csv('./Results/Cor_result.csv', index=True)
+
+# Extract the variables with absolute correlation greater than 0.6
+positive_correlation_list = correlation_result[(correlation_result > 0) & (correlation_result.abs() > 0.65)].sort_values(ascending=False)
+negative_correlation_list = correlation_result[(correlation_result < 0) & (correlation_result.abs() > 0.65)].sort_values(ascending=True)
+
+# Print the lists of variables with absolute correlation greater than 0.6
+print(positive_correlation_list)
+print(negative_correlation_list)
+
+positive_correlation_list.to_csv('./Results/Positive_Cor_result.csv', index=True)
+negative_correlation_list.to_csv('./Results/Negative_Cor_result.csv', index=True)
+
+
+positive_correlation_variables = list(positive_correlation_list.index)
+negative_correlation_variables = list(negative_correlation_list.index)
+
+
+print(positive_correlation_variables)
+print(negative_correlation_variables)
+\end{lstlisting}
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
 % 
 % 
 % 

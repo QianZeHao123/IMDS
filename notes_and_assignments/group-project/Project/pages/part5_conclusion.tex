@@ -2,7 +2,7 @@
 % 
 % 
 \subsection{Results Analysis}
-\subsubsection*{Unveiling Team Prowess Through Fourier Transform Analysis}
+\subsubsection*{\textbf{Unveiling Team Prowess Through Fourier Transform Analysis}}
 \paragraph{Historical data serves as a manifestation of a team's capabilities. Therefore, we consider each set of data from the past 15 years of the English Premier League as a unique signal. By applying Fourier transforms in both the time and frequency domains, we aim to extract hidden information from these historical datasets, treating each team's performance as a distinctive signal. We employ feature extraction formulas to analyze these signals, attempting to unveil latent information that reflects the teams' strengths. This approach helps delve into patterns and trends in a team's past performances, providing a more comprehensive understanding of their athletic prowess.}
 % 
 % 
@@ -17,3 +17,105 @@
 % 
 % 
 \paragraph{Our initial dataset comprises only 9 columns from the 2023-24 season. Through feature extraction on historical season data, we have expanded the dataset to include 121 columns. This provides us with greater flexibility for the upcoming steps of correlation analysis and PCA.}
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+\subsubsection*{\textbf{Analysis of Correlation between other variables and Points}}
+% 
+\paragraph{Through the feature extraction of historical Premier League season data in the previous section, we incorporated more variables into the Spearman correlation analysis function and discovered many intriguing conclusions. Here are some data points with significant correlations. We extracted variables with correlations greater than 0.65:}
+% 
+% $$$$
+% 
+\begin{center}
+    \begin{tabular}{cc}
+        \hline
+        Variable                          & Spearman Correlation \\
+        \hline
+        Win                               & 0.9533104557457376   \\
+        GD                                & 0.8948732427304006   \\
+        GF                                & 0.8586225905364607   \\
+        GF\_max\_value                    & 0.8215219412798919   \\
+        GD\_max\_value                    & 0.7745621530420769   \\
+        Points\_rms                       & 0.7518113287871696   \\
+        GF\_mean                          & 0.7394017882844927   \\
+        Points\_mean                      & 0.7362994031588235   \\
+        GF\_rms                           & 0.7300946329074851   \\
+        Win\_rms                          & 0.7269922477818159   \\
+        GF\_median                        & 0.7232290137967814   \\
+        Points\_max\_value                & 0.7230852735691926   \\
+        GD\_mean                          & 0.7197533491552544   \\
+        Win\_max\_value                   & 0.7174050173932447   \\
+        GF\_power\_spectral\_density      & 0.697002524900347    \\
+        GF\_total\_power                  & 0.697002524900347    \\
+        Win\_mean                         & 0.6876953695233393   \\
+        GF\_max\_frequency\_magnitude     & 0.681490599272001    \\
+        Points\_power\_spectral\_density  & 0.6649445452684319   \\
+        Points\_max\_frequency\_magnitude & 0.6649445452684319   \\
+        Points\_total\_power              & 0.6649445452684319   \\
+        Win\_total\_power                 & 0.6649445452684319   \\
+        Win\_power\_spectral\_density     & 0.6649445452684319   \\
+        Points\_median                    & 0.6599275122106363   \\
+        GF\_min\_value                    & 0.6542250749488004   \\
+        GF\_std\_dev                      & 0.651500876390532    \\
+        Draw\_centroid\_frequency         & 0.6504667480153089   \\
+        \hline
+    \end{tabular}
+\end{center}
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+\begin{center}
+    \begin{tabular}{cc}
+        \hline
+        Variable & Spearman Correlation \\
+        \hline
+        Loss & -0.9180829639568062 \\
+        GA & -0.7707937688076131 \\
+        Loss\_min\_value & -0.7688337623041291 \\
+        Loss\_mean & -0.7387248271014586 \\
+        Loss\_rms & -0.7145827072791391 \\
+        Loss\_median & -0.712066382380961 \\
+        Loss\_max\_value & -0.6820301277059824 \\
+        \hline
+        \end{tabular}
+\end{center}
+% 
+\paragraph{Through correlation analysis, we have uncovered some surprising findings. Firstly, there is a positive correlation between the number of wins (Win) and the final score (Points), while the number of losses (Loss) shows a negative correlation with the final score. This aligns well with our intuitive expectations.}
+% 
+\paragraph{Furthermore, we observed a significant correlation between the derived features from our historical data processing and the final score. For instance, variables obtained through time-domain analysis such as GF\_max\_value, GD\_max\_value, Loss\_mean, and Loss\_median, as well as those obtained through frequency-domain analysis like GF\_power\_spectral\_density and GF\_max\_frequency\_magnitude, exhibit a strong correlation with the final score.}
+% 
+\paragraph{This discovery suggests that our feature engineering methods go beyond simple processing of raw data collected from websites. These derived features may offer valuable insights when predicting the performance of football teams.}
+% 
+% 
+% 
+% 
+% 
+\subsection{Model Application}
+\paragraph{In terms of model application, the insights derived from feature extraction and in-depth analysis of variable correlations in historical data can be applied to football team management decisions. Specifically, these analytical results can assist team managers in better understanding the team's strengths and weaknesses, enabling them to formulate more effective game strategies. For example, a deeper understanding of key variables such as wins (Win) and losses (Loss) can provide a basis for making more informed decisions during matches.}
+% 
+% 
+\paragraph{Simultaneously, the model can also provide assistance in football betting analysis. By understanding the relationship between various features and the final score, fans and bettors can more accurately assess a team's performance in a match, making more informed choices in football betting.}
+% 
+% 
+\paragraph{Overall, through in-depth analysis of football match data, we not only offer strategic recommendations for teams but also provide more precise information for fans and bettors, enhancing their confidence and enjoyment in following and participating in football matches.}
+\subsection{Limitation}
+\paragraph{Our analysis focused on assessing the importance of various variables. While it can be a valuable tool to aid in the analysis of the English Premier League, it is not a predictive model. Using PCA and correlation analysis to predict which teams will win in the future is a challenging task. Our work should be seen as part of a holistic analysis, as a reference rather than an explicit forecasting tool.}
+% 
+% 
+\subsection{Future Work}
+\paragraph{Unfortunately, due to the lack of independent variables in our dataset, we cannot derive much from the models/analysis that we did not already know. In future, researchers might consider amassing datasets featuring variables which are not part of the calculation of the ranking, such as red cards, yellow cards, penalties and net worth of the players on the team in that season. Then performing this analysis could find which of the variables factored most significantly into the ranking of the team.}
+\paragraph{At the same time, since our team now only has two members and has only completed the model and code parts of the PCA part, the results of the PCA analysis have not appeared in this report. If possible, we hope to complete this part.}
